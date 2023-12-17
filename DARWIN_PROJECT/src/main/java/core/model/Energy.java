@@ -1,4 +1,4 @@
-package model;
+package core.model;
 
 public class Energy {
     int energyLevel;
@@ -7,6 +7,10 @@ public class Energy {
     public Energy(int energylevel, int leveltoreproduce){
         this.energyLevel = energylevel;
         this.leveltoReproduce = leveltoreproduce;
+    }
+
+    public String toString(){
+        return Integer.toString(this.energyLevel);
     }
 
     public boolean enoughToReproduce(){

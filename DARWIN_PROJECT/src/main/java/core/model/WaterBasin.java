@@ -1,8 +1,6 @@
-package model;
+package core.model;
 
 import java.util.Map;
-
-import static model.MapDirection.*;
 
 public class WaterBasin {
     private Map<Vector2d, Water> waterFields;
@@ -15,7 +13,7 @@ public class WaterBasin {
         this.upperRight = upperRight;
         this.lowerLeft = lowerLeft;
         this.flow = 1;                      // 1 - przypływ, -1 - odpływ
-        this.flowDirection = NORTH;
+        this.flowDirection = MapDirection.NORTH;
     }
 
     public void changeFlow(){

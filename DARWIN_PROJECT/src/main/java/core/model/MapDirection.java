@@ -1,4 +1,4 @@
-package model;
+package core.model;
 
 public enum MapDirection {
     NORTH,
@@ -24,6 +24,10 @@ public enum MapDirection {
         };
     }
 
+    public MapDirection rotate(int rotatenumber){
+        MapDirection[] values = MapDirection.values();
+        return values[(this.ordinal() + rotatenumber) % values.length];
+    }
     public MapDirection previous(){
         MapDirection[] values = MapDirection.values();
         return values[(this.ordinal() - 1 + values.length) % values.length];
