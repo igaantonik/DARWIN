@@ -1,8 +1,8 @@
-package model;
+package core.model;
 
 import java.util.*;
 
-public abstract class AbstractWorldMap implements WorldMap{
+public abstract class AbstractWorldMap implements WorldMap {
     protected Map<Vector2d, Animal> animals = new HashMap<>();
     protected Map<Vector2d, Plant> plants = new HashMap<>();
     protected int plantsAmount;
@@ -12,7 +12,7 @@ public abstract class AbstractWorldMap implements WorldMap{
     protected UUID uuid;
 
     public void addObserver(MapChangeListener observer) {
-        listeners.add(observer);
+        this.listeners.add(observer);
     }
     public void deleteObserver(MapChangeListener observer) {
         int i = listeners.indexOf(observer);
@@ -35,23 +35,22 @@ public abstract class AbstractWorldMap implements WorldMap{
         }
 
         animals.put(position, animal);
-        mapChanged("animal added");
+//        mapChanged("animal added");
         return true;
     }
 
 
     @Override
-    public void move(Animal animal, MapDirection direction) {
+    public void move(Animal animal) {
         if(animals.containsValue(animal)){
             Vector2d position = animal.getPosition();
-            MoveValidator validator = this;
-            animal.move(direction, validator);
+            animal.move(this);
             Vector2d new_position = animal.getPosition();
             if (!position.equals(new_position)) {
                 this.animals.remove(position);
                 this.animals.put(new_position, animal);
             }
-            mapChanged("animal added");
+            mapChanged("animal moved");
         }
     }
 
@@ -74,10 +73,6 @@ public abstract class AbstractWorldMap implements WorldMap{
         return result;
     }
 
-
-    // nie wiem co tu ma być
-    @Override
-    public String toString(){return "*";}
 
     @Override
     public UUID getId() {

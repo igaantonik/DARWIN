@@ -1,4 +1,4 @@
-package model;
+package core.model;
 
 public class Water implements MapElement {
     private Vector2d position;

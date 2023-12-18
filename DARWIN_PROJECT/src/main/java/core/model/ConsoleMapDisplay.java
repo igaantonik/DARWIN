@@ -1,4 +1,4 @@
-package model;
+package core.model;
 
 public class ConsoleMapDisplay implements MapChangeListener{
     private int updateCount = 0;

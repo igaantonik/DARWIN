@@ -1,8 +1,7 @@
-package model;
+package core.model;
 
-import model.Vector2d;
+import core.model.*;
 
-import java.util.Collection;
 import java.util.Map;
 import java.util.UUID;
 
@@ -10,7 +9,7 @@ public interface WorldMap extends MoveValidator {
 
     boolean placeAnimal(Animal animal) throws PositionAlreadyOccupiedException;
 
-    void move(Animal animal, MapDirection direction);
+    void move(Animal animal);
 
     boolean isOccupied(Vector2d position);
 
