@@ -1,9 +1,10 @@
-package core.model;
+package oop.model;
 
 import java.util.*;
 
 public class AbstractGenom implements Genom {
     protected List<Integer> genes;
+    //
     protected int currentGen;
 
 

@@ -1,4 +1,4 @@
-package core.model;
+package oop.model;
 
 import java.util.Map;
 

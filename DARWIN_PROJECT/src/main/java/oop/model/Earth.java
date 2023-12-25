@@ -1,4 +1,4 @@
-package core.model;
+package oop.model;
 
 public class Earth extends AbstractWorldMap implements WorldMap {
 

@@ -1,17 +1,17 @@
-package core;
+package oop;
 
-import core.model.*;
+import oop.model.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Simulation {
     public List<Animal> animals;
     public WorldMap map;
-    public Parameters parameters;
+    public AniamalParameters parameters;
 
     public Simulation(List<Vector2d> start_positions, WorldMap map){
         this.map = map;
-        this.parameters = new Parameters();
+        this.parameters = new AniamalParameters();
         List<Animal> animals = new ArrayList<>();
         for(Vector2d start_position: start_positions) {
             animals.add(new Animal(start_position, this.parameters));

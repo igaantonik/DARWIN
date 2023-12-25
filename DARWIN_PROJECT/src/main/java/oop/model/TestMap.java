@@ -1,7 +1,7 @@
-package core.model;
+package oop.model;
 
 
-import core.MapVisualizer;
+import oop.MapVisualizer;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -1,11 +1,13 @@
-package core.model;
+package oop.model;
 
-public class Parameters {
+public class AniamalParameters {
     private int animalStartEnergy;
 
-    private int animalDailyLostEnergy;
 
     private int reproduceEnergy;
+    private int eatEnergy;
+
+    public int getEatEnergy() {return eatEnergy;}
 
     public int getAnimalStartEnergy() {
         return this.animalStartEnergy;
@@ -15,11 +17,11 @@ public class Parameters {
         return this.reproduceEnergy;
     }
 
-    public int getAnimalDailyLostEnergy(){return this.animalDailyLostEnergy; }
 
-    public Parameters(){
+    public AniamalParameters(){
         this.animalStartEnergy=10;
         this.reproduceEnergy=5;
+        this.eatEnergy=3;
     }
 
 }

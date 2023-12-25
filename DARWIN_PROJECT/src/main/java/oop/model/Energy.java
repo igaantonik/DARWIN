@@ -1,8 +1,12 @@
-package core.model;
+package oop.model;
 
 public class Energy {
     int energyLevel;
     int leveltoReproduce;
+
+    public int getEnergyLevel() {
+        return energyLevel;
+    }
 
     public Energy(int energylevel, int leveltoreproduce){
         this.energyLevel = energylevel;
@@ -27,7 +31,7 @@ public class Energy {
         return true;
     }
 
-    public void getEnergy(int addedenergy){
+    public void addEnergy(int addedenergy){
         this.energyLevel += addedenergy;
     }
 
@@ -35,10 +39,12 @@ public class Energy {
         this.energyLevel -= lostenergy;
     }
 
-    public boolean win(Energy enemyenergy){
+    public int win(Energy enemyenergy){
         if(enemyenergy.energyLevel > this.energyLevel){
-            return false;
+            return -1;
+        } else if(enemyenergy.energyLevel < this.energyLevel) {
+            return 1;
         }
-        return true;
+        return 0;
     }
 }
