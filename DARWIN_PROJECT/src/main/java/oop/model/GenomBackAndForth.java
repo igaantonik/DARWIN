@@ -7,6 +7,17 @@ import java.util.Random;
 public class GenomBackAndForth extends AbstractGenom implements Genom{
     private int behaviour;
 
+    public GenomBackAndForth(List <Integer> genes){
+        this.genes = genes;
+        this.currentGen = 0;
+        this.behaviour = 1;
+    }
+
+    public GenomBackAndForth(Animal animal1, Animal animal2){
+        this.genes = ;
+        this.currentGen = 0;
+        this.behaviour = 1;
+    }
     public void mutation() {
         Random rand = new Random();
         List<Integer> new_genes = new ArrayList<>();
@@ -16,11 +27,7 @@ public class GenomBackAndForth extends AbstractGenom implements Genom{
         }
         this.genes=new_genes;
     }
-    public GenomBackAndForth(List <Integer> genes){
-        this.genes = genes;
-        this.currentGen = 0;
-        this.behaviour = 1;
-    }
+
 
     public void nextGen(){
         if(currentGen == 0){

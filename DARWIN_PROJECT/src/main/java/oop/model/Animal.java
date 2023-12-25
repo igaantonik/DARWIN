@@ -5,9 +5,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Animal implements MapElement, Comparable<Animal>{
-    private final int childsNum;
+    private int childsNum;
     private int age;
-    private int childs_num;
     private Vector2d position;
     private MapDirection direction;
     private Genom genom;
@@ -16,10 +15,7 @@ public class Animal implements MapElement, Comparable<Animal>{
     private boolean isDeceased;
 
     //stracona energia == energia mlodego
-    // age cmp
-    // childs num cmp
     // zwierzak umarl
-    //
 
     public Animal(Vector2d position, AniamalParameters parameters){
         this.genom = new GenomBackAndForth(new ArrayList<>(Arrays.asList(0,1,0,0,1,0)));
@@ -30,7 +26,17 @@ public class Animal implements MapElement, Comparable<Animal>{
         this.direction = MapDirection.NORTH;
         this.isDeceased = false;
         this.energy = new Energy(this.parameters.getAnimalStartEnergy(), this.parameters.getReproduceEnergy());
+    }
 
+    public Animal(Vector2d position, AniamalParameters parameters, int energylevel, Genom genom){
+        this.genom = genom;
+        this.age = 0;
+        this.childsNum = 0;
+        this.position = position;
+        this.parameters = parameters;
+        this.direction = MapDirection.NORTH;
+        this.isDeceased = false;
+        this.energy = new Energy(energylevel, this.parameters.getReproduceEnergy());
     }
     public Energy getEnergy(){
         return this.energy;
@@ -44,6 +50,9 @@ public class Animal implements MapElement, Comparable<Animal>{
         return  this.childsNum;
     }
 
+    public Genom getGenom() {
+        return genom;
+    }
 
     public void move(MoveValidator validator){
         MapDirection new_direction = genom.changeDirection(this.direction);
@@ -53,6 +62,7 @@ public class Animal implements MapElement, Comparable<Animal>{
             this.position = new_position;
         }
         this.energy.lostEnergy(1);
+        this.age += 1;
     }
     public void eat(){
         this.energy.addEnergy(parameters.getEatEnergy());
@@ -65,6 +75,13 @@ public class Animal implements MapElement, Comparable<Animal>{
             this.isDeceased = true;
             return false;
         }
+    }
+    public boolean canReproduce(){
+        return this.energy.enoughToReproduce();
+    }
+    public Animal reproduce(Animal animal, Vector2d position){
+        Genom newGenom = new GenomBackAndForth(this, animal);
+        return new Animal(position, parameters, parameters.getReproduceEnergy()*2,newGenom);
     }
 
 

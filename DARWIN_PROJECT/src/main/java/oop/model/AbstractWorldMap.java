@@ -69,9 +69,37 @@ public abstract class AbstractWorldMap implements WorldMap {
         deceased_animals.add(animal);
     }
 
+    public void dinner(){
+        for(Vector2d position: plants.keySet()){
+            sortAliveAnimalsInVector(position);
+            if(aliveAnimals.containsKey(position)){
+                Animal animal = aliveAnimals.get(position).get(-1);
+                animal.eat();
+                removePlant(plants.get(position));
+            }
+        }
+    }
+
+    public void reprodaction(){
+        for(Vector2d position: aliveAnimals.keySet()){
+            sortAliveAnimalsInVector(position);
+            List<Animal> animals = aliveAnimals.get(position);
+            List<Animal> newAnimals = new ArrayList<>();
+            int i=0;
+            while(i + 1 < animals.size() && animals.get(i+1).canReproduce()){
+                Animal animal1 = animals.get(i);
+                Animal animal2 = animals.get(i+1);
+                newAnimals.add(animal1.reproduce(animal2, position));
+            }
+        }
+    }
+
+    //posortowane rosnąco mozna uzyc i przy umieraniu zwierzakow jak i przy reprodukcji i zjadaniu roslin
+
     public void sortAliveAnimalsInVector(Vector2d position){
         List<Animal> animals = aliveAnimals.get(position);
         Collections.sort(animals);
+        aliveAnimals.replace(position, animals);
     }
 
 
