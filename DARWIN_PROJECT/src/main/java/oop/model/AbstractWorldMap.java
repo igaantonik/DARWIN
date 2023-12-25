@@ -52,20 +52,22 @@ public abstract class AbstractWorldMap implements WorldMap {
 
     @Override
     public void move(Animal animal) {
+        removeAnimal(animal);
         Vector2d position = animal.getPosition();
         animal.move(this);
-        Vector2d new_position = animal.getPosition();
-        if (!position.equals(new_position)) {
-            placeAnimal(animal);
-        }
+        placeAnimal(animal);
+        mapChanged("mapa sie zmieniła");
     }
 
-    @Override
-    public void deadAnimal(Animal animal){
+    public void removeAnimal(Animal animal){
         Vector2d position = animal.getPosition();
         List<Animal> animals = aliveAnimals.get(position);
         animals.remove(animal);
         aliveAnimals.replace(position,animals);
+    }
+    @Override
+    public void deadAnimal(Animal animal){
+        removeAnimal(animal);
         deceased_animals.add(animal);
     }
 

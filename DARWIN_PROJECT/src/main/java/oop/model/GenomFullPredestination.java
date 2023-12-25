@@ -3,11 +3,10 @@ package oop.model;
 import java.util.List;
 
 public class GenomFullPredestination extends AbstractGenom implements Genom{
-    private List<Integer> genes;
     private int currentGen;
 
-    public GenomFullPredestination(List<Integer> genes) {
-        this.genes = genes;
+    public GenomFullPredestination() {
+        this.genes = mutation();
         this.currentGen = 0;
     }
 }

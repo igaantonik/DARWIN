@@ -1,7 +1,9 @@
 package oop.model;
 
+import java.util.List;
+
 public interface Genom {
-    void mutation();
+    List<Gen> mutation();
 
     MapDirection changeDirection(MapDirection currDirection);
 

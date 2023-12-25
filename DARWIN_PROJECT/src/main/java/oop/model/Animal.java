@@ -14,11 +14,9 @@ public class Animal implements MapElement, Comparable<Animal>{
     private AniamalParameters parameters;
     private boolean isDeceased;
 
-    //stracona energia == energia mlodego
-    // zwierzak umarl
 
     public Animal(Vector2d position, AniamalParameters parameters){
-        this.genom = new GenomBackAndForth(new ArrayList<>(Arrays.asList(0,1,0,0,1,0)));
+        this.genom = new GenomBackAndForth();
         this.age = 0;
         this.childsNum = 0;
         this.position = position;
@@ -64,6 +62,7 @@ public class Animal implements MapElement, Comparable<Animal>{
         this.energy.lostEnergy(1);
         this.age += 1;
     }
+
     public void eat(){
         this.energy.addEnergy(parameters.getEatEnergy());
     }
@@ -80,6 +79,7 @@ public class Animal implements MapElement, Comparable<Animal>{
         return this.energy.enoughToReproduce();
     }
     public Animal reproduce(Animal animal, Vector2d position){
+        //drzewko rodzinne
         Genom newGenom = new GenomBackAndForth(this, animal);
         return new Animal(position, parameters, parameters.getReproduceEnergy()*2,newGenom);
     }
