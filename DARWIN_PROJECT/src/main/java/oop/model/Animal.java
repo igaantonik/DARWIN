@@ -52,9 +52,10 @@ public class Animal implements MapElement, Comparable<Animal>{
         return genom;
     }
 
-    public void move(MoveValidator validator){
+    public void move(MoveValidator validator, Vector2d upper){
         MapDirection new_direction = genom.changeDirection(this.direction);
         Vector2d new_position = genom.changePosition(this.position, new_direction);
+        new_position = new_position.enwrapping(upper);
         this.direction = new_direction;
         if(validator.canMoveTo(new_position)){
             this.position = new_position;

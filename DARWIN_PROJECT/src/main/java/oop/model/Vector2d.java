@@ -10,6 +10,11 @@ public class Vector2d {
         this.x = x;
         this.y = y;
     }
+
+    public Vector2d enwrapping(Vector2d upper){
+        Vector2d new_vector = new Vector2d(this.x % upper.getX(), this.y);
+        return new_vector;
+    }
     public int getX(){
         return this.x;
     }
