@@ -11,8 +11,8 @@ public class Vector2d {
         this.y = y;
     }
 
-    public Vector2d enwrapping(Vector2d upper){
-        Vector2d new_vector = new Vector2d(this.x % upper.getX(), this.y);
+    public Vector2d enwrapping(int width){
+        Vector2d new_vector = new Vector2d(this.x % width, this.y);
         return new_vector;
     }
     public int getX(){

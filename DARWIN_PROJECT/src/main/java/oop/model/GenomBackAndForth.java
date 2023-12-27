@@ -8,14 +8,15 @@ public class GenomBackAndForth extends AbstractGenom implements Genom{
     private int behaviour;
 
     public GenomBackAndForth(){
-        genes = mutation();
+        randomGenes();
         this.currentGen = 0;
         this.behaviour = 1;
     }
 
     public GenomBackAndForth(Animal animal1, Animal animal2){
-        mutation();
-        this.currentGen = 0;
+        Random rand = new Random();
+        genes = childsgenom(animal1,animal2);
+        this.currentGen = rand.nextInt(genes.size()-1);
         this.behaviour = 1;
     }
 

@@ -1,8 +1,7 @@
 package oop.model;
 
 
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Random;
 
 public class Animal implements MapElement, Comparable<Animal>{
     private int childsNum;
@@ -16,12 +15,13 @@ public class Animal implements MapElement, Comparable<Animal>{
 
 
     public Animal(Vector2d position, AniamalParameters parameters){
+        Random rand = new Random();
         this.genom = new GenomBackAndForth();
         this.age = 0;
         this.childsNum = 0;
         this.position = position;
         this.parameters = parameters;
-        this.direction = MapDirection.NORTH;
+        this.direction = MapDirection.values()[rand.nextInt(8)];
         this.isDeceased = false;
         this.energy = new Energy(this.parameters.getAnimalStartEnergy(), this.parameters.getReproduceEnergy());
     }
@@ -39,6 +39,10 @@ public class Animal implements MapElement, Comparable<Animal>{
     public Energy getEnergy(){
         return this.energy;
     }
+
+    public int getEnergyLevel(){
+        return this.energy.getEnergyLevel();
+    }
     
     public int getAge(){
         return this.age;
@@ -52,10 +56,10 @@ public class Animal implements MapElement, Comparable<Animal>{
         return genom;
     }
 
-    public void move(MoveValidator validator, Vector2d upper){
+    public void move(MoveValidator validator, int width){
         MapDirection new_direction = genom.changeDirection(this.direction);
         Vector2d new_position = genom.changePosition(this.position, new_direction);
-        new_position = new_position.enwrapping(upper);
+        new_position = new_position.enwrapping(width);
         this.direction = new_direction;
         if(validator.canMoveTo(new_position)){
             this.position = new_position;
@@ -82,6 +86,7 @@ public class Animal implements MapElement, Comparable<Animal>{
     public Animal reproduce(Animal animal, Vector2d position){
         //drzewko rodzinne
         Genom newGenom = new GenomBackAndForth(this, animal);
+        newGenom.mutation();
         return new Animal(position, parameters, parameters.getReproduceEnergy()*2,newGenom);
     }
 

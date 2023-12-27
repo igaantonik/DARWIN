@@ -7,8 +7,8 @@ public abstract class AbstractWorldMap implements WorldMap {
     protected List<Animal> deceased_animals = new ArrayList<>();
     protected Map<Vector2d, Plant> plants = new HashMap<>();
     protected int plantsAmount;
-    protected Vector2d lowerLeft;
-    protected Vector2d upperRight;
+    protected int height;
+    protected int width;
     protected ArrayList<MapChangeListener> listeners = new ArrayList<>();
     protected UUID uuid;
 
@@ -54,7 +54,7 @@ public abstract class AbstractWorldMap implements WorldMap {
     public void move(Animal animal) {
         removeAnimal(animal);
         Vector2d position = animal.getPosition();
-        animal.move(this, upperRight);
+        animal.move(this, this.width);
         placeAnimal(animal);
         mapChanged("mapa sie zmieniła");
     }
