@@ -2,9 +2,8 @@ package oop.model;
 
 public class AniamalParameters {
     private int animalStartEnergy;
-
-
-    private int reproduceEnergy;
+    private int energyToReproduce;
+    private int energyLostToReproduce;
     private int eatEnergy;
 
     public int getEatEnergy() {return eatEnergy;}
@@ -13,14 +12,17 @@ public class AniamalParameters {
         return this.animalStartEnergy;
     }
 
-    public int getReproduceEnergy() {
-        return this.reproduceEnergy;
+    public int getEnergyToReproduce() {
+        return this.energyToReproduce;
     }
+
+    public int getEnergyLostToReproduce(){return this.energyLostToReproduce;}
 
 
     public AniamalParameters(){
         this.animalStartEnergy=10;
-        this.reproduceEnergy=5;
+        this.energyToReproduce =5;
+        this.energyLostToReproduce = 2;
         this.eatEnergy=3;
     }
 

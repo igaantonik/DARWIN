@@ -1,41 +1,45 @@
 package oop.model;
 
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class Animal implements MapElement, Comparable<Animal>{
-    private int childsNum;
     private int age;
     private Vector2d position;
     private MapDirection direction;
     private Genom genom;
     private Energy energy;
+    private List<Animal> children;
     private AniamalParameters parameters;
     private boolean isDeceased;
 
-
+    // Creating Animal
     public Animal(Vector2d position, AniamalParameters parameters){
         Random rand = new Random();
         this.genom = new GenomBackAndForth();
         this.age = 0;
-        this.childsNum = 0;
+        this.children = new ArrayList<>();
         this.position = position;
         this.parameters = parameters;
         this.direction = MapDirection.values()[rand.nextInt(8)];
         this.isDeceased = false;
-        this.energy = new Energy(this.parameters.getAnimalStartEnergy(), this.parameters.getReproduceEnergy());
+        this.energy = new Energy(this.parameters.getAnimalStartEnergy(), this.parameters.getEnergyToReproduce());
     }
 
     public Animal(Vector2d position, AniamalParameters parameters, int energylevel, Genom genom){
         this.genom = genom;
         this.age = 0;
-        this.childsNum = 0;
+        this.children = new ArrayList<>();
         this.position = position;
         this.parameters = parameters;
         this.direction = MapDirection.NORTH;
         this.isDeceased = false;
-        this.energy = new Energy(energylevel, this.parameters.getReproduceEnergy());
+        this.energy = new Energy(energylevel, this.parameters.getEnergyToReproduce());
     }
+
+    // Getting atributs
     public Energy getEnergy(){
         return this.energy;
     }
@@ -47,15 +51,36 @@ public class Animal implements MapElement, Comparable<Animal>{
     public int getAge(){
         return this.age;
     }
-    
-    public int getChildsNum(){
-        return  this.childsNum;
-    }
 
     public Genom getGenom() {
         return genom;
     }
 
+    public Vector2d getPosition() {
+        return this.position;
+    }
+
+
+    // Statistics
+    public int howManyChildren(){
+        return  this.children.size();
+    }
+
+    public int howManyOffspring(){
+        List<Animal> offspring = getOffspring(new ArrayList<>());
+        return offspring.size();
+    }
+    public List<Animal> getOffspring(List<Animal> offspring){
+        for(Animal child: children){
+            if(!offspring.contains(child)) {
+                offspring.addAll(child.getOffspring(offspring));
+            }
+        }
+        return offspring;
+    }
+
+
+    // Daily events
     public void move(MoveValidator validator, int width){
         MapDirection new_direction = genom.changeDirection(this.direction);
         Vector2d new_position = genom.changePosition(this.position, new_direction);
@@ -64,13 +89,14 @@ public class Animal implements MapElement, Comparable<Animal>{
         if(validator.canMoveTo(new_position)){
             this.position = new_position;
         }
-        this.energy.lostEnergy(1);
+        this.loseEnergy(1);
         this.age += 1;
     }
 
     public void eat(){
         this.energy.addEnergy(parameters.getEatEnergy());
     }
+
     public boolean isAlive(){
         if(energy.canLive()){
             return true;
@@ -80,20 +106,34 @@ public class Animal implements MapElement, Comparable<Animal>{
             return false;
         }
     }
+
+    public void addChild(Animal child){
+        this.children.add(child);
+    }
+
     public boolean canReproduce(){
         return this.energy.enoughToReproduce();
     }
+
     public Animal reproduce(Animal animal, Vector2d position){
-        //drzewko rodzinne
         Genom newGenom = new GenomBackAndForth(this, animal);
         newGenom.mutation();
-        return new Animal(position, parameters, parameters.getReproduceEnergy()*2,newGenom);
+        Animal child = new Animal(position, parameters, parameters.getEnergyLostToReproduce()*2,newGenom);
+
+        this.addChild(child);
+        this.loseEnergy(parameters.getEnergyLostToReproduce());
+
+        animal.addChild(child);
+        animal.loseEnergy(parameters.getEnergyLostToReproduce());
+        return child;
+    }
+
+    public void loseEnergy(int energylevel){
+        this.energy.lostEnergy(energylevel);
     }
 
 
-    public Vector2d getPosition() {
-        return this.position;
-    }
+    // Other
     public String toString(){
         return this.direction.toString();
     }
@@ -109,7 +149,7 @@ public class Animal implements MapElement, Comparable<Animal>{
             return cmp_age;
         }
 
-        int cmp_childs = Integer.compare(this.getChildsNum(), animal.getChildsNum());
+        int cmp_childs = Integer.compare(this.howManyChildren(), animal.howManyChildren());
         return cmp_childs;
     }
 }
