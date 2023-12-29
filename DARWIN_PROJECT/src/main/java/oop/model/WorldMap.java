@@ -6,14 +6,34 @@ import java.util.UUID;
 
 public interface WorldMap extends MoveValidator {
 
+    //Daily events Plant - DO ZROBIENIA
+    void dailyPlantGrow();
+
+    //Daily events Plant
+    boolean placePlant(Plant plant) throws PositionAlreadyOccupiedException;
+
+    void removePlant(Plant plant);
+
     boolean placeAnimal(Animal animal) throws PositionAlreadyOccupiedException;
 
     void move(Animal animal);
 
     boolean isOccupied(Vector2d position);
 
+    void moveAllAnimals();
+
+    void dinner();
+
+    void reproduction();
+
+    void lookForDeadAnimals();
+
+    void sortAliveAnimalsInVector(Vector2d position);
+
     boolean isPlant(Vector2d position);
     boolean isAnimal(Vector2d position);
+
+    void removeAnimal(Animal animal);
 
     void deadAnimal(Animal animal);
 

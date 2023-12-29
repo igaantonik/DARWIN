@@ -5,10 +5,6 @@ public class WorldParameters {
     private int mapHeight;
     private int mapWariant; //0-normal 1-extra
     private int startAnimalNumber;
-    private int genomLength;
-    private int genomWariant; //0-normal 1-extra
-    private int minMutation;
-    private int maxMutation;
     private int startPlantNumber;
     private int dailyPlantsAdded;
 
@@ -24,18 +20,6 @@ public class WorldParameters {
 
     public int getStartAnimalNumber() {return startAnimalNumber;}
 
-    public int getGenomLength(){return genomLength;}
-
-    public int getGenomWariant(){ return genomWariant;}
-
-    public int getMinMutation() {
-        return minMutation;
-    }
-
-    public int getMaxMutation() {
-        return maxMutation;
-    }
-
     public int getDailyPlantsAdded() {
         return dailyPlantsAdded;
     }
@@ -43,5 +27,7 @@ public class WorldParameters {
     public int getStartPlantNumber() {
         return startPlantNumber;
     }
+
+    // jeszcze nie wiem jak to ustawiac
 
 }

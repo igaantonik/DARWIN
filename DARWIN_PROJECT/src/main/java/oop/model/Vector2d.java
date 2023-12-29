@@ -6,15 +6,14 @@ public class Vector2d {
     private final int x;
     private final int y;
 
+    // constructor
     public Vector2d(int x, int y){
         this.x = x;
         this.y = y;
     }
 
-    public Vector2d enwrapping(int width){
-        Vector2d new_vector = new Vector2d(this.x % width, this.y);
-        return new_vector;
-    }
+
+    // Getting atributes
     public int getX(){
         return this.x;
     }
@@ -22,9 +21,14 @@ public class Vector2d {
     public int getY(){
         return this.y;
     }
-    public String toString(){
-        return "(" + this.x + "," + this.y +")";
+
+    // Wrapping for Earth map
+    public Vector2d enwrapping(int width){
+        Vector2d new_vector = new Vector2d(this.x % width, this.y);
+        return new_vector;
     }
+
+    // Other
 
     boolean precedes(Vector2d other){
         if(other.x >= this.x && other.y >= this.y){
@@ -50,44 +54,12 @@ public class Vector2d {
         return new Vector2d(x3, y3);
     }
 
-    Vector2d upperRight(Vector2d other){
-        int x4;
-        int y4;
-        if(this.x >= other.x){
-            x4 = this.x;
-        }
-        else {
-            x4 = other.x;
-        }
-        if(this.y >= other.y){
-            y4 = this.y;
-        }
-        else {
-            y4 = other.y;
-        }
-        return new Vector2d( x4, y4);
-    }
-
-    Vector2d lowerLeft(Vector2d other){
-        int x4;
-        int y4;
-        if(this.x <= other.x){
-            x4 = this.x;
-        }
-        else {
-            x4 = other.x;
-        }
-        if(this.y <= other.y){
-            y4 = this.y;
-        }
-        else {
-            y4 = other.y;
-        }
-        return new Vector2d( x4, y4);
-    }
-
     Vector2d opposite(){
         return new Vector2d(-this.x, -this.y);
+    }
+
+    public String toString(){
+        return "(" + this.x + "," + this.y +")";
     }
 
     @Override

@@ -6,12 +6,40 @@ public class AbstractGenom implements Genom {
     protected List<Gen> genes;
     protected int currentGen;
 
+    protected AnimalParameters parameters;
 
+
+    // Getting atributes
+    public List<Gen> getGenes() {
+        return genes;
+    }
+
+    // Moving animal
+
+    @Override
+    public MapDirection changeDirection(MapDirection currentDirection) {
+        MapDirection newDirection = currentDirection.rotate(this.genes.get(currentGen).toInteger());
+        return newDirection;
+    }
+
+    @Override
+    public Vector2d changePosition(Vector2d currentPosition, MapDirection currentDirection) {
+        Vector2d move = currentDirection.toUnitVector();
+        this.nextGen();
+        return currentPosition.add(move);
+    }
+
+    @Override
+    public void nextGen(){
+        this.currentGen += 1;
+    }
+
+    // Creating Gen list
     @Override
     public void randomGenes(){
         Random rand = new Random();
         List<Gen> new_genes = new ArrayList<>();
-        for(int i=0; i < 20; i++){
+        for(int i=0; i < parameters.getGenomLength(); i++){
             new_genes.add(Gen.values()[rand.nextInt(8)]);
         }
         this.genes = new_genes;
@@ -19,20 +47,20 @@ public class AbstractGenom implements Genom {
     @Override
     public void mutation() {
         Random rand = new Random();
-        List<Gen> new_genes = new ArrayList<>();
         List<Gen> gens = this.genes;
-        int max_gen = 8;
-        int randomGensNumber = rand.nextInt(20);
+        int max_gen = parameters.getMaxMutation();
+        int min_gen = parameters.getMinMutation();
+        int randomGensNumber = rand.nextInt((max_gen-min_gen)+1)+min_gen;
         for (int i = 0; i < randomGensNumber; i++){
-            gens.remove(i);
-            gens.add(i,Gen.values()[rand.nextInt(8)]);
+            int index = rand.nextInt(gens.size());
+            gens.remove(index);
+            gens.add(index,Gen.values()[rand.nextInt(8)]);
             }
         this.genes = gens;
     }
 
-    public List<Gen> getGenes() {
-        return genes;
-    }
+
+    // Creating childs genom
 
     public List<Gen> childsgenom(Animal animal1, Animal animal2){
         Random rand = new Random();
@@ -57,24 +85,7 @@ public class AbstractGenom implements Genom {
         return newgenes;
     }
 
-    @Override
-    public MapDirection changeDirection(MapDirection currentDirection) {
-        MapDirection newDirection = currentDirection.rotate(this.genes.get(currentGen).toInteger());
-        return newDirection;
-    }
 
-    @Override
-    public Vector2d changePosition(Vector2d currentPosition, MapDirection currentDirection) {
-        Vector2d move = currentDirection.toUnitVector();
-        this.nextGen();
-        return currentPosition.add(move);
-    }
-
-
-    @Override
-    public void nextGen(){
-        this.currentGen += 1;
-    }
 
 
 }

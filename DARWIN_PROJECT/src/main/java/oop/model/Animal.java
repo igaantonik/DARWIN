@@ -12,13 +12,13 @@ public class Animal implements MapElement, Comparable<Animal>{
     private Genom genom;
     private Energy energy;
     private List<Animal> children;
-    private AniamalParameters parameters;
+    private AnimalParameters parameters;
     private boolean isDeceased;
 
     // Creating Animal
-    public Animal(Vector2d position, AniamalParameters parameters){
+    public Animal(Vector2d position, AnimalParameters parameters){
         Random rand = new Random();
-        this.genom = new GenomBackAndForth();
+        this.genom = new GenomBackAndForth(parameters);
         this.age = 0;
         this.children = new ArrayList<>();
         this.position = position;
@@ -28,7 +28,7 @@ public class Animal implements MapElement, Comparable<Animal>{
         this.energy = new Energy(this.parameters.getAnimalStartEnergy(), this.parameters.getEnergyToReproduce());
     }
 
-    public Animal(Vector2d position, AniamalParameters parameters, int energylevel, Genom genom){
+    public Animal(Vector2d position, AnimalParameters parameters, int energylevel, Genom genom){
         this.genom = genom;
         this.age = 0;
         this.children = new ArrayList<>();
@@ -116,7 +116,7 @@ public class Animal implements MapElement, Comparable<Animal>{
     }
 
     public Animal reproduce(Animal animal, Vector2d position){
-        Genom newGenom = new GenomBackAndForth(this, animal);
+        Genom newGenom = new GenomBackAndForth(this, animal, parameters);
         newGenom.mutation();
         Animal child = new Animal(position, parameters, parameters.getEnergyLostToReproduce()*2,newGenom);
 

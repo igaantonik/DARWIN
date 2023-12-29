@@ -4,19 +4,20 @@ public class Energy {
     int energyLevel;
     int leveltoReproduce;
 
-    public int getEnergyLevel() {
-        return energyLevel;
-    }
+    // construktor
 
     public Energy(int energylevel, int leveltoreproduce){
         this.energyLevel = energylevel;
         this.leveltoReproduce = leveltoreproduce;
     }
 
-    public String toString(){
-        return Integer.toString(this.energyLevel);
+    // Getting atributes
+    public int getEnergyLevel() {
+        return energyLevel;
     }
 
+
+    // Daily events
     public boolean enoughToReproduce(){
         if(this.energyLevel >= this.leveltoReproduce){
             return true;
@@ -39,12 +40,9 @@ public class Energy {
         this.energyLevel -= lostenergy;
     }
 
-    public int win(Energy enemyenergy){
-        if(enemyenergy.energyLevel > this.energyLevel){
-            return -1;
-        } else if(enemyenergy.energyLevel < this.energyLevel) {
-            return 1;
-        }
-        return 0;
+
+    // other
+    public String toString(){
+        return Integer.toString(this.energyLevel);
     }
 }
