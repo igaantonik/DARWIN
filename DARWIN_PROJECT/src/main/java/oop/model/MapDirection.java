@@ -1,4 +1,4 @@
-package core.model;
+package oop.model;
 
 public enum MapDirection {
     NORTH,
@@ -24,6 +24,8 @@ public enum MapDirection {
         };
     }
 
+    // Changing direction
+
     public MapDirection rotate(int rotatenumber){
         MapDirection[] values = MapDirection.values();
         return values[(this.ordinal() + rotatenumber) % values.length];
@@ -37,6 +39,8 @@ public enum MapDirection {
         MapDirection[] values = MapDirection.values();
         return values[(this.ordinal() + 1) % values.length];
     }
+
+    // Moving
 
     public Vector2d toUnitVector(){
         return switch(this){

@@ -1,7 +1,7 @@
-package core;
+package oop;
 
-import core.model.Vector2d;
-import core.model.WorldMap;
+import oop.model.Vector2d;
+import oop.model.WorldMap;
 
 /**
  * The map visualizer converts the {@link WorldMap} map into a string
@@ -75,7 +75,7 @@ public class MapVisualizer {
 
     private String drawObject(Vector2d currentPosition) {
         if (this.map.isOccupied(currentPosition)) {
-            Object object = this.map.objectAt(currentPosition);
+            Object object = this.map.animalAt(currentPosition);
             if (object != null) {
                 return object.toString();
             }

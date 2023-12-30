@@ -1,4 +1,4 @@
-package core.model;
+package oop.model;
 
 public class Plant implements MapElement {
     private final Vector2d position;

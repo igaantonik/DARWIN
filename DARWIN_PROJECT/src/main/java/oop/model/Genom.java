@@ -1,6 +1,9 @@
-package core.model;
+package oop.model;
+
+import java.util.List;
 
 public interface Genom {
+    void randomGenes();
     void mutation();
 
     MapDirection changeDirection(MapDirection currDirection);
@@ -8,5 +11,7 @@ public interface Genom {
     Vector2d changePosition(Vector2d vector2d, MapDirection direction);
 
     void nextGen();
+
+    List<Gen> getGenes();
 
 }

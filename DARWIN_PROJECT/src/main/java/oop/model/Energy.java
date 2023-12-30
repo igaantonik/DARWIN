@@ -1,18 +1,23 @@
-package core.model;
+package oop.model;
 
 public class Energy {
     int energyLevel;
     int leveltoReproduce;
+
+    // construktor
 
     public Energy(int energylevel, int leveltoreproduce){
         this.energyLevel = energylevel;
         this.leveltoReproduce = leveltoreproduce;
     }
 
-    public String toString(){
-        return Integer.toString(this.energyLevel);
+    // Getting atributes
+    public int getEnergyLevel() {
+        return energyLevel;
     }
 
+
+    // Daily events
     public boolean enoughToReproduce(){
         if(this.energyLevel >= this.leveltoReproduce){
             return true;
@@ -27,7 +32,7 @@ public class Energy {
         return true;
     }
 
-    public void getEnergy(int addedenergy){
+    public void addEnergy(int addedenergy){
         this.energyLevel += addedenergy;
     }
 
@@ -35,10 +40,9 @@ public class Energy {
         this.energyLevel -= lostenergy;
     }
 
-    public boolean win(Energy enemyenergy){
-        if(enemyenergy.energyLevel > this.energyLevel){
-            return false;
-        }
-        return true;
+
+    // other
+    public String toString(){
+        return Integer.toString(this.energyLevel);
     }
 }
