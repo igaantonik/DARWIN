@@ -13,10 +13,6 @@ public abstract class AbstractWorldMap implements WorldMap {
     protected ArrayList<MapChangeListener> listeners = new ArrayList<>();
     protected UUID uuid;
 
-    // Popraiwnienie mapvisualizera
-    // Sprawdzanie czy na polu jest woda ( tylko dla mapy FlowsandEbbs )
-    // trzeba trzymac parametry i dodawać roslinki kiedy jest ich mniej niz okresolono
-
 
     // listeners
     public void addObserver(MapChangeListener observer) {
@@ -32,6 +28,16 @@ public abstract class AbstractWorldMap implements WorldMap {
         for (MapChangeListener observer : listeners) {
             observer.mapChanged(this, message);
         }
+    }
+
+    // Day
+    public void dayRoutine(){
+        lookForDeadAnimals();
+        moveAllAnimals();
+        dinner();
+        reproduction();
+        dailyPlantGrow();
+        mapChanged("mapa sie zmieniła");
     }
 
 
@@ -50,17 +56,7 @@ public abstract class AbstractWorldMap implements WorldMap {
     public void dailyPlantGrow(){
         placePlants(worldParameters.getDailyPlantsAdded());
     }
-//    @Override
-//    public boolean placePlant(Plant plant) throws PositionAlreadyOccupiedException {
-//        Vector2d position = plant.getPosition();
-//        if (this.plantAt(position) == null) {
-//            throw new PositionAlreadyOccupiedException(position);
-//        }
-//
-//        plants.put(position, plant);
-//        mapChanged("plant added");
-//        return true;
-//    }
+
 
     @Override
     public boolean placePlant(Plant plant){
@@ -106,7 +102,7 @@ public abstract class AbstractWorldMap implements WorldMap {
         Vector2d position = animal.getPosition();
         animal.move(this, this.width);
         placeAnimal(animal);
-        mapChanged("mapa sie zmieniła");
+
     }
 
     @Override
@@ -166,6 +162,7 @@ public abstract class AbstractWorldMap implements WorldMap {
                 Animal child = animal1.reproduce(animal2, position);
                 newAnimals.add(child);
                 allAnimals.add(child);
+                i++;
             }
             animals.addAll(newAnimals);
             aliveAnimals.replace(position, animals);

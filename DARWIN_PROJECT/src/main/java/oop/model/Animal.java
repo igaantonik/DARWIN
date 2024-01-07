@@ -4,6 +4,7 @@ package oop.model;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.Vector;
 
 public class Animal implements MapElement, Comparable<Animal>{
     private int age;
@@ -84,10 +85,11 @@ public class Animal implements MapElement, Comparable<Animal>{
     public void move(MoveValidator validator, int width){
         MapDirection new_direction = genom.changeDirection(this.direction);
         Vector2d new_position = genom.changePosition(this.position, new_direction);
-        new_position = new_position.enwrapping(width);
+        Vector2d wrapped_position;
+        wrapped_position = new_position.enwrapping(width+1);
         this.direction = new_direction;
-        if(validator.canMoveTo(new_position)){
-            this.position = new_position;
+        if(validator.canMoveTo(wrapped_position)){
+            this.position = wrapped_position;
         }
         this.loseEnergy(1);
         this.age += 1;
@@ -135,7 +137,7 @@ public class Animal implements MapElement, Comparable<Animal>{
 
     // Other
     public String toString(){
-        return this.direction.toString();
+        return this.energy.toString();
     }
     
     @Override
