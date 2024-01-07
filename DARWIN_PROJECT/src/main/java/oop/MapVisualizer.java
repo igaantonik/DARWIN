@@ -79,6 +79,13 @@ public class MapVisualizer {
             if (object != null) {
                 return object.toString();
             }
+            else{
+                Object object2 = this.map.plantAt(currentPosition);
+                if (object2 != null) {
+                    return object2.toString();
+                }
+            }
+
         }
         return EMPTY_CELL;
     }

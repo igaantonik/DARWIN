@@ -42,8 +42,8 @@ public class WorldParameters {
         this.mapHeight = 10;
         this.mapWariant = 0; //0-normal 1-extra
         this.startAnimalNumber = 1;
-        this.startPlantNumber = 1;
-        this.dailyPlantsAdded = 1;
+        this.startPlantNumber = 3;
+        this.dailyPlantsAdded = 5;
         this.plantEnergy = 5;
         this.basinsNumber = 0;
     }
