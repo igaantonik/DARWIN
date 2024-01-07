@@ -43,7 +43,7 @@ public class RandomPlantPositionGenerator implements Iterable<Vector2d> {
 
             @Override
             public boolean hasNext() {
-                return generatedCount < amount;
+                return generatedCount < amount && !availablePositions.isEmpty() && !junglePositions.isEmpty();
             }
 
             @Override
