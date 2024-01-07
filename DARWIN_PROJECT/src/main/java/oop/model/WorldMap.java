@@ -6,6 +6,7 @@ import java.util.UUID;
 
 public interface WorldMap extends MoveValidator {
 
+    void dayRoutine();
     //Daily events Plant - DO ZROBIENIA
     void dailyPlantGrow();
 

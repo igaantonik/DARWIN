@@ -26,15 +26,9 @@ public class Simulation {
 
     public void run(int days){
         for(int d=0; d<days; d++){
-            dayRoutine();
+            map.dayRoutine();
         }
     }
 
-    public void dayRoutine(){
-        map.lookForDeadAnimals();
-        map.moveAllAnimals();
-        map.dinner();
-        map.reproduction();
-        map.dailyPlantGrow();
-    }
+
 }
