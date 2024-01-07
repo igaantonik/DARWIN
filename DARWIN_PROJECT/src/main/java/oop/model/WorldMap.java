@@ -9,8 +9,9 @@ public interface WorldMap extends MoveValidator {
     //Daily events Plant - DO ZROBIENIA
     void dailyPlantGrow();
 
+    void placePlants(int plantsAmount);
     //Daily events Plant
-    boolean placePlant(Plant plant) throws PositionAlreadyOccupiedException;
+    boolean placePlant(Plant plant);
 
     void removePlant(Plant plant);
 

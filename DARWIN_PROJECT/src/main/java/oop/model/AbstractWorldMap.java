@@ -7,7 +7,6 @@ public abstract class AbstractWorldMap implements WorldMap {
     protected Map<Vector2d, List<Animal>> aliveAnimals = new HashMap<>();
     protected List<Animal> deceased_animals = new ArrayList<>();
     protected Map<Vector2d, Plant> plants = new HashMap<>();
-    protected int plantsAmount;
     protected int height;
     protected int width;
     protected WorldParameters worldParameters;
@@ -41,15 +40,35 @@ public abstract class AbstractWorldMap implements WorldMap {
 
 
     //Daily events Plant - DO ZROBIENIA
+
+    public void placePlants(int plantsAmount) {
+        RandomPlantPositionGenerator randomPositionGenerator = new RandomPlantPositionGenerator(width - 1, height - 1, plantsAmount, plants);
+
+        for (Vector2d plantPosition : randomPositionGenerator) {
+            placePlant(new Plant(plantPosition));
+        }
+    }
+
+
     @Override
     public void dailyPlantGrow(){
+        placePlants(worldParameters.getDailyPlantsAdded());
     }
+//    @Override
+//    public boolean placePlant(Plant plant) throws PositionAlreadyOccupiedException {
+//        Vector2d position = plant.getPosition();
+//        if (this.plantAt(position) == null) {
+//            throw new PositionAlreadyOccupiedException(position);
+//        }
+//
+//        plants.put(position, plant);
+//        mapChanged("plant added");
+//        return true;
+//    }
+
     @Override
-    public boolean placePlant(Plant plant) throws PositionAlreadyOccupiedException {
+    public boolean placePlant(Plant plant){
         Vector2d position = plant.getPosition();
-        if (this.plantAt(position) == null) {
-            throw new PositionAlreadyOccupiedException(position);
-        }
 
         plants.put(position, plant);
         mapChanged("plant added");
