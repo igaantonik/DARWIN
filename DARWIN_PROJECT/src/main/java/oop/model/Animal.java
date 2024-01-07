@@ -137,6 +137,7 @@ public class Animal implements MapElement, Comparable<Animal>{
     public String toString(){
         return this.direction.toString();
     }
+    
     @Override
     public int compareTo(Animal animal) {
         int cmp_energy = Integer.compare(this.getEnergy().getEnergyLevel(), animal.getEnergy().getEnergyLevel());

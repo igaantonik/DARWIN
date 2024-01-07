@@ -22,4 +22,9 @@ public class Plant implements MapElement {
     void gotEaten(){
         energyToGet = 0;
     }
+
+
+    public String toString(){
+        return "*";
+    }
 }

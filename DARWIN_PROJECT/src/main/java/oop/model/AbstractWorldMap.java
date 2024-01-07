@@ -35,11 +35,7 @@ public abstract class AbstractWorldMap implements WorldMap {
     }
 
 
-    // usunełam error z zajetą pozycja
-    //chyba trzeba tworzyc roslinlke??
-
-
-    //Daily events Plant - DO ZROBIENIA
+    //Daily events Plant
 
     public void placePlants(int plantsAmount) {
         RandomPlantPositionGenerator randomPositionGenerator = new RandomPlantPositionGenerator(width - 1, height - 1, plantsAmount, plants);
@@ -78,10 +74,11 @@ public abstract class AbstractWorldMap implements WorldMap {
     @Override
     public void removePlant(Plant plant){
         Vector2d position = plant.getPosition();
-        if(plants.containsValue(plant)){
-            plants.remove(position);
-            mapChanged("plant deleted");
-        }
+        plants.remove(position);
+//        if(plants.containsValue(plant)){
+//            plants.remove(position);
+//            mapChanged("plant deleted");
+//        }
     }
 
     // Daily events Animals
@@ -115,15 +112,20 @@ public abstract class AbstractWorldMap implements WorldMap {
 
     @Override
     public void removeAnimal(Animal animal){
-        allAnimals.remove(animal);
+//        allAnimals.remove(animal);
         Vector2d position = animal.getPosition();
         List<Animal> animals = aliveAnimals.get(position);
         animals.remove(animal);
-        aliveAnimals.replace(position,animals);
+        if(animals.isEmpty()){
+            aliveAnimals.remove(position);
+        } else {
+            aliveAnimals.replace(position, animals);
+        }
     }
     @Override
     public void deadAnimal(Animal animal){
         removeAnimal(animal);
+        allAnimals.remove(animal);
         deceased_animals.add(animal);
     }
 
@@ -137,9 +139,10 @@ public abstract class AbstractWorldMap implements WorldMap {
     @Override
     public void dinner(){
         for(Vector2d position: plants.keySet()){
-            sortAliveAnimalsInVector(position);
             if(aliveAnimals.containsKey(position)){
-                Animal animal = aliveAnimals.get(position).get(-1);
+                sortAliveAnimalsInVector(position);
+                List<Animal> animalsInVector = aliveAnimals.get(position);
+                Animal animal = animalsInVector.get(animalsInVector.size()-1);
                 animal.eat();
                 removePlant(plants.get(position));
             }
@@ -167,14 +170,23 @@ public abstract class AbstractWorldMap implements WorldMap {
 
     @Override
     public void lookForDeadAnimals(){
-        for(Vector2d position: aliveAnimals.keySet()) {
-            sortAliveAnimalsInVector(position);
-            List<Animal> animals = aliveAnimals.get(position);
-            int index = animals.size()-1;
-            while( index >= 0 && !animals.get(index).isAlive()){
-                deadAnimal(animals.get(index));
-                index -=1;
+        List<Animal> deceasedAnimals = new ArrayList<>();
+//        for(Vector2d position: aliveAnimals.keySet()) {
+//            sortAliveAnimalsInVector(position);
+//            List<Animal> animals = aliveAnimals.get(position);
+//            int index = animals.size()-1;
+//            while( index >= 0 && !animals.get(index).isAlive()){
+////                deadAnimal(animals.get(index));
+//                index -=1;
+//            }
+//        }
+        for(Animal animal: allAnimals){
+            if(!animal.isAlive()){
+                deceasedAnimals.add(animal);
             }
+        }
+        for(Animal animal: deceasedAnimals){
+            deadAnimal(animal);
         }
     }
 
@@ -183,8 +195,10 @@ public abstract class AbstractWorldMap implements WorldMap {
     @Override
     public void sortAliveAnimalsInVector(Vector2d position){
         List<Animal> animals = aliveAnimals.get(position);
-        Collections.sort(animals);
-        aliveAnimals.replace(position, animals);
+        if(!animals.isEmpty()){
+            Collections.sort(animals);
+            aliveAnimals.replace(position, animals);
+        }
     }
 
 

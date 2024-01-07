@@ -64,12 +64,12 @@ public class AbstractGenom implements Genom {
 
     public List<Gen> childsgenom(Animal animal1, Animal animal2){
         Random rand = new Random();
-        float gensFrom1 = ((float) animal1.getEnergyLevel() / (animal1.getEnergyLevel()+animal2.getEnergyLevel()))*genes.size();
+        float gensFrom1 = ((float) animal1.getEnergyLevel() / (animal1.getEnergyLevel()+animal2.getEnergyLevel()))* parameters.getGenomLength();
         int animal1genes = Math.round(gensFrom1);
         if(rand.nextBoolean()){
                 return createNewGenes(animal1.getGenom().getGenes(), animal2.getGenom().getGenes(), animal1genes);
             } else{
-                return createNewGenes(animal2.getGenom().getGenes(), animal1.getGenom().getGenes(), genes.size()-animal1genes);
+                return createNewGenes(animal2.getGenom().getGenes(), animal1.getGenom().getGenes(), parameters.getGenomLength()-animal1genes);
         }
     }
 
