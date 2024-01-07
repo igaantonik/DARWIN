@@ -24,7 +24,7 @@ public class Vector2d {
 
     // Wrapping for Earth map
     public Vector2d enwrapping(int width){
-        Vector2d new_vector = new Vector2d(this.x % width, this.y);
+        Vector2d new_vector = new Vector2d(((this.x % width) + width)%width, this.y);
         return new_vector;
     }
 
