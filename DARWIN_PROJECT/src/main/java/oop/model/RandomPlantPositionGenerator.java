@@ -16,7 +16,10 @@ public class RandomPlantPositionGenerator implements Iterable<Vector2d> {
         this.amount = amount;
 
         for (int x = 0; x < maxWidth; x++) {
-            for (int y = 0; y < maxHeight; y++) {
+            for (int y = 0; y < (maxHeight*4)/10; y++) {
+                availablePositions.add(new Vector2d(x, y));
+            }
+            for (int y = (maxHeight*6)/10; y < maxHeight; y++) {
                 availablePositions.add(new Vector2d(x, y));
             }
         }
@@ -40,7 +43,7 @@ public class RandomPlantPositionGenerator implements Iterable<Vector2d> {
 
             @Override
             public boolean hasNext() {
-                return generatedCount < amount;
+                return generatedCount < amount && !availablePositions.isEmpty() && !junglePositions.isEmpty();
             }
 
             @Override
@@ -48,18 +51,18 @@ public class RandomPlantPositionGenerator implements Iterable<Vector2d> {
                 if (hasNext()) {
                     int variant = random.nextInt(10);
                     Vector2d generatedPosition;
-                    if (variant<=2){
+                    if (variant > 2 && !junglePositions.isEmpty()) {
+                        int randomIndex = random.nextInt(junglePositions.size());
+                        generatedPosition = junglePositions.remove(randomIndex);
+                        generatedCount++;
+                    } else if (!availablePositions.isEmpty()) {
                         int randomIndex = random.nextInt(availablePositions.size());
                         generatedPosition = availablePositions.remove(randomIndex);
                         generatedCount++;
                     }
-                    else{
-                        int randomIndex = random.nextInt(junglePositions.size());
-                        generatedPosition = junglePositions.remove(randomIndex);
-                        availablePositions.remove(randomIndex);
-                        generatedCount++;
+                    else {
+                        throw new IllegalStateException("No more positions to generate.");
                     }
-
 
                     return generatedPosition;
                 }
