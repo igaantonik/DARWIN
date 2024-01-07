@@ -43,7 +43,7 @@ public class WorldParameters {
         this.mapWariant = 0; //0-normal 1-extra
         this.startAnimalNumber = 1;
         this.startPlantNumber = 3;
-        this.dailyPlantsAdded = 5;
+        this.dailyPlantsAdded = 1;
         this.plantEnergy = 5;
         this.basinsNumber = 0;
     }
