@@ -15,6 +15,7 @@ public class TestMap extends AbstractWorldMap implements WorldMap {
         this.uuid = UUID.randomUUID();
         this.height = height;
         this.width = width;
+        this.worldParameters = new WorldParameters();
         this.mapVisualizer = new  MapVisualizer(this);
     }
 
