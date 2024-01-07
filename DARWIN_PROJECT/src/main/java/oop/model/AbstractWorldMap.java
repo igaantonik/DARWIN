@@ -67,7 +67,6 @@ public abstract class AbstractWorldMap implements WorldMap {
         Vector2d position = plant.getPosition();
 
         plants.put(position, plant);
-        mapChanged("plant added");
         return true;
     }
 
@@ -138,14 +137,19 @@ public abstract class AbstractWorldMap implements WorldMap {
 
     @Override
     public void dinner(){
+        List<Plant> plantsEaten = new ArrayList<>();
         for(Vector2d position: plants.keySet()){
             if(aliveAnimals.containsKey(position)){
                 sortAliveAnimalsInVector(position);
                 List<Animal> animalsInVector = aliveAnimals.get(position);
                 Animal animal = animalsInVector.get(animalsInVector.size()-1);
                 animal.eat();
-                removePlant(plants.get(position));
+                plantsEaten.add(plants.get(position));
+                System.out.println("Nie działa");
             }
+        }
+        for(Plant plant: plantsEaten){
+            removePlant(plant);
         }
     }
 
