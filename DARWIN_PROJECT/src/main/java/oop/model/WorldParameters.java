@@ -8,7 +8,7 @@ public class WorldParameters {
     private int startPlantNumber;
     private int dailyPlantsAdded;
     private int basinsNumber;
-    private int plantEnergy;
+//    private int plantEnergy;
 
 
     public int getMapWidth() {
@@ -30,21 +30,20 @@ public class WorldParameters {
     public int getStartPlantNumber() {
         return startPlantNumber;
     }
-    public int getPlantEnergy() {return plantEnergy;}
+//    public int getPlantEnergy() {return plantEnergy;}
     public int getBasinsNumber() {
         return basinsNumber;
     }
 
     // jeszcze nie wiem jak to ustawiac
 
-    public WorldParameters(){
-        this.mapWidth = 10;
-        this.mapHeight = 10;
-        this.mapWariant = 0; //0-normal 1-extra
-        this.startAnimalNumber = 1;
-        this.startPlantNumber = 3;
-        this.dailyPlantsAdded = 1;
-        this.plantEnergy = 5;
-        this.basinsNumber = 0;
+    public WorldParameters(int mapHeight, int mapWariant, int mapWidth, int startAnimalNumber, int startPlantNumber, int dailyPlantsAdded ){
+        this.mapWidth = mapWidth;
+        this.mapHeight = mapHeight;
+        this.mapWariant = mapWariant; //0-normal 1-extra
+        this.startAnimalNumber = startAnimalNumber;
+        this.startPlantNumber = startPlantNumber;
+        this.dailyPlantsAdded = dailyPlantsAdded;
+        this.basinsNumber = 10;
     }
 }

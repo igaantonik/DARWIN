@@ -11,6 +11,19 @@ public class AnimalParameters {
     private int minMutation;
     private int maxMutation;
 
+    public AnimalParameters(int animalStartEnergy, int energyToReproduce, int energyLostToReproduce, int eatEnergy, int genomLength, int genomWariant, int maxMutation, int minMutation){
+        this.animalStartEnergy= animalStartEnergy;
+        this.energyToReproduce = energyToReproduce;
+        this.energyLostToReproduce = energyLostToReproduce;
+        this.eatEnergy = eatEnergy;
+        this.genomLength = genomLength;
+        this.genomWariant = genomWariant;
+        this.maxMutation = maxMutation;
+        this.minMutation = minMutation;
+    }
+
+
+
     public int getEatEnergy() {return this.eatEnergy;}
 
     public int getAnimalStartEnergy() {
@@ -21,32 +34,26 @@ public class AnimalParameters {
         return this.energyToReproduce;
     }
 
+
     public int getEnergyLostToReproduce(){return this.energyLostToReproduce;}
+
 
     public int getGenomLength(){return this.genomLength;}
 
+
+
     public int getGenomWariant(){ return this.genomWariant;}
+
+
 
     public int getMinMutation() {
         return this.minMutation;
     }
 
+
     public int getMaxMutation() {
         return this.maxMutation;
     }
 
-
-    //jeszcze nie wiem jak to ustawiac
-
-    public AnimalParameters(){
-        this.animalStartEnergy=10;
-        this.energyToReproduce =5;
-        this.energyLostToReproduce = 2;
-        this.eatEnergy=3;
-        this.genomLength=20;
-        this.genomWariant=1;
-        this.maxMutation=10;
-        this.minMutation=2;
-    }
 
 }

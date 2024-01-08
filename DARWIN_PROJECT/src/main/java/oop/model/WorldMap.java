@@ -6,6 +6,9 @@ import java.util.UUID;
 
 public interface WorldMap extends MoveValidator {
 
+    // listeners
+    void addObserver(MapChangeListener observer);
+
     void dayRoutine();
     //Daily events Plant - DO ZROBIENIA
     void dailyPlantGrow();
@@ -16,7 +19,7 @@ public interface WorldMap extends MoveValidator {
 
     void removePlant(Plant plant);
 
-    boolean placeAnimal(Animal animal) throws PositionAlreadyOccupiedException;
+    boolean placeAnimal(Animal animal);
 
     void move(Animal animal);
 

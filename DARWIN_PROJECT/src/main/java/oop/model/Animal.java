@@ -19,7 +19,7 @@ public class Animal implements MapElement, Comparable<Animal>{
     // Creating Animal
     public Animal(Vector2d position, AnimalParameters parameters){
         Random rand = new Random();
-        this.genom = new GenomBackAndForth(parameters);
+        this.genom = ChosingGenomVariant.createGenom(parameters);
         this.age = 0;
         this.children = new ArrayList<>();
         this.position = position;
@@ -118,7 +118,7 @@ public class Animal implements MapElement, Comparable<Animal>{
     }
 
     public Animal reproduce(Animal animal, Vector2d position){
-        Genom newGenom = new GenomBackAndForth(this, animal, parameters);
+        Genom newGenom = ChosingGenomVariant.createChildGenom(parameters, this, animal);
         newGenom.mutation();
         Animal child = new Animal(position, parameters, parameters.getEnergyLostToReproduce()*2,newGenom);
 
