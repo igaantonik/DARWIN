@@ -2,14 +2,15 @@ package oop.model;
 
 public class Plant implements MapElement {
     private final Vector2d position;
-    private int energyToGet;
-    private WorldParameters parameters = new WorldParameters();
+//    private int energyToGet;
+//    private WorldParameters worldParameters;
     private Vector2d preferenceUpperRight;
     private Vector2d preferenceLowerLeft;
 
     public Plant(Vector2d position) {
         this.position = position;
-        this.energyToGet = parameters.getPlantEnergy();
+//        this.worldParameters = worldParameters;
+//        this.energyToGet = parameters.getPlantEnergy();
     }
 
     @Override
@@ -19,9 +20,9 @@ public class Plant implements MapElement {
         return this.position.equals(position);
     }
 
-    void gotEaten(){
-        energyToGet = 0;
-    }
+//    void gotEaten(){
+//        energyToGet = 0;
+//    }
 
 
     public String toString(){
