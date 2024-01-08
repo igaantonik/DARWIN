@@ -50,4 +50,11 @@ public interface WorldMap extends MoveValidator {
     Map<Vector2d, MapElement> getElements();
 
     UUID getId();
+     List<Animal> getAllAnimals();
+     Map<Vector2d, List<Animal>> getAliveAnimals();
+     List<Animal> getDeceasedAnimals();
+    Map<Vector2d, Plant> getAllPlants();
+
+    int getHeight();
+    int getWidth();
 }

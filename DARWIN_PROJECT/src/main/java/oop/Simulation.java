@@ -51,6 +51,9 @@ public class Simulation {
             map.dayRoutine();
         }
     }
+    public WorldMap getMap(){
+        return map;
+    }
 
 
 }

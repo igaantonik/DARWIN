@@ -235,6 +235,13 @@ public abstract class AbstractWorldMap implements WorldMap {
         return uuid;
     }
 
+    public List<Animal> getAllAnimals(){return allAnimals;}
+    public Map<Vector2d, List<Animal>> getAliveAnimals(){return aliveAnimals;}
+    public List<Animal> getDeceasedAnimals(){return deceased_animals;}
+    public Map<Vector2d, Plant> getAllPlants(){return plants;}
+    public int getHeight(){return height;}
+    public int getWidth(){return width;}
+
 
 
 
