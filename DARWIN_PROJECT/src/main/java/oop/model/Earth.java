@@ -7,11 +7,11 @@ import java.util.UUID;
 public class Earth extends AbstractWorldMap implements WorldMap {
     private MapVisualizer mapVisualizer;
 
-    public Earth(int height, int width) {
+    public Earth( WorldParameters worldParameters) {
         this.uuid = UUID.randomUUID();
-        this.height = height;
-        this.width = width;
-        this.worldParameters = new WorldParameters();
+        this.height = worldParameters.getMapHeight();
+        this.width = worldParameters.getMapWidth();
+        this.worldParameters = worldParameters;
         this.mapVisualizer = new MapVisualizer(this);
         placePlants(worldParameters.getStartPlantNumber());
     }

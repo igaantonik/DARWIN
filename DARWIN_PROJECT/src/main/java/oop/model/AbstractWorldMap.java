@@ -15,6 +15,7 @@ public abstract class AbstractWorldMap implements WorldMap {
 
 
     // listeners
+    @Override
     public void addObserver(MapChangeListener observer) {
         this.listeners.add(observer);
     }
@@ -61,7 +62,6 @@ public abstract class AbstractWorldMap implements WorldMap {
     @Override
     public boolean placePlant(Plant plant){
         Vector2d position = plant.getPosition();
-
         plants.put(position, plant);
         return true;
     }
@@ -70,10 +70,6 @@ public abstract class AbstractWorldMap implements WorldMap {
     public void removePlant(Plant plant){
         Vector2d position = plant.getPosition();
         plants.remove(position);
-//        if(plants.containsValue(plant)){
-//            plants.remove(position);
-//            mapChanged("plant deleted");
-//        }
     }
 
     // Daily events Animals
@@ -107,7 +103,6 @@ public abstract class AbstractWorldMap implements WorldMap {
 
     @Override
     public void removeAnimal(Animal animal){
-//        allAnimals.remove(animal);
         Vector2d position = animal.getPosition();
         List<Animal> animals = aliveAnimals.get(position);
         animals.remove(animal);
@@ -141,7 +136,6 @@ public abstract class AbstractWorldMap implements WorldMap {
                 Animal animal = animalsInVector.get(animalsInVector.size()-1);
                 animal.eat();
                 plantsEaten.add(plants.get(position));
-                System.out.println("Nie działa");
             }
         }
         for(Plant plant: plantsEaten){
@@ -172,15 +166,6 @@ public abstract class AbstractWorldMap implements WorldMap {
     @Override
     public void lookForDeadAnimals(){
         List<Animal> deceasedAnimals = new ArrayList<>();
-//        for(Vector2d position: aliveAnimals.keySet()) {
-//            sortAliveAnimalsInVector(position);
-//            List<Animal> animals = aliveAnimals.get(position);
-//            int index = animals.size()-1;
-//            while( index >= 0 && !animals.get(index).isAlive()){
-////                deadAnimal(animals.get(index));
-//                index -=1;
-//            }
-//        }
         for(Animal animal: allAnimals){
             if(!animal.isAlive()){
                 deceasedAnimals.add(animal);
