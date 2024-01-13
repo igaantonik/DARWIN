@@ -37,13 +37,13 @@ public class WorldParameters {
 
     // jeszcze nie wiem jak to ustawiac
 
-    public WorldParameters(int mapHeight, int mapWariant, int mapWidth, int startAnimalNumber, int startPlantNumber, int dailyPlantsAdded ){
+    public WorldParameters(int mapHeight, int mapWariant, int mapWidth, int startAnimalNumber, int startPlantNumber, int dailyPlantsAdded, int basinsNumber ){
         this.mapWidth = mapWidth;
         this.mapHeight = mapHeight;
         this.mapWariant = mapWariant; //0-normal 1-extra
         this.startAnimalNumber = startAnimalNumber;
         this.startPlantNumber = startPlantNumber;
         this.dailyPlantsAdded = dailyPlantsAdded;
-        this.basinsNumber = 10;
+        this.basinsNumber = basinsNumber;
     }
 }

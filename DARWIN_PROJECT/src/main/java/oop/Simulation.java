@@ -16,10 +16,11 @@ public class Simulation {
         this.worldParameters = new WorldParametersBuilder()
                 .setStartAnimalNumber(10)
                 .setMapHeight(10)
-                .setMapWariant(1)
+                .setMapWariant(0)
                 .setDailyPlantsAdded(2)
                 .setMapWidth(10)
                 .setStartPlantNumber(5)
+                .setBasinsNumber(3)
                 .build();
         this.map = ChosingMapVariant.createMap(worldParameters);
 
@@ -48,7 +49,7 @@ public class Simulation {
 
     public void run(int days){
         for(int d=0; d<days; d++){
-            map.dayRoutine();
+            map.dayRoutine(d);
         }
     }
     public WorldMap getMap(){

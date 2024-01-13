@@ -25,14 +25,15 @@ public abstract class AbstractWorldMap implements WorldMap {
             listeners.remove(i);
         }
     }
-    private void mapChanged(String message) {
+    @Override
+    public void mapChanged(String message) {
         for (MapChangeListener observer : listeners) {
             observer.mapChanged(this, message);
         }
     }
 
     // Day
-    public void dayRoutine(){
+    public void dayRoutine(int day){
         lookForDeadAnimals();
         moveAllAnimals();
         dinner();
@@ -105,7 +106,9 @@ public abstract class AbstractWorldMap implements WorldMap {
     public void removeAnimal(Animal animal){
         Vector2d position = animal.getPosition();
         List<Animal> animals = aliveAnimals.get(position);
-        animals.remove(animal);
+        if(!animals.isEmpty()){
+            animals.remove(animal);
+        }
         if(animals.isEmpty()){
             aliveAnimals.remove(position);
         } else {
@@ -234,6 +237,8 @@ public abstract class AbstractWorldMap implements WorldMap {
     public UUID getId() {
         return uuid;
     }
+
+    public boolean waterAt(Vector2d position){return false;}
 
     public List<Animal> getAllAnimals(){return allAnimals;}
     public Map<Vector2d, List<Animal>> getAliveAnimals(){return aliveAnimals;}
