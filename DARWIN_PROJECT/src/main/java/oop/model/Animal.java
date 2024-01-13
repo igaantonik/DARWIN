@@ -88,7 +88,7 @@ public class Animal implements MapElement, Comparable<Animal>{
         Vector2d wrapped_position;
         wrapped_position = new_position.enwrapping(width+1);
         this.direction = new_direction;
-        if(validator.canMoveTo(wrapped_position)){
+        if(validator.canMoveTo(new_position)){
             this.position = wrapped_position;
         }
         this.loseEnergy(1);
