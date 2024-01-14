@@ -100,7 +100,7 @@ public class Animal implements MapElement, Comparable<Animal>{
     }
 
     public boolean isAlive(){
-        if(energy.canLive()){
+        if(this.energy.canLive()){
             return true;
         }
         else{

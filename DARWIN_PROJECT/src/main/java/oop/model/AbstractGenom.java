@@ -18,8 +18,7 @@ public class AbstractGenom implements Genom {
 
     @Override
     public MapDirection changeDirection(MapDirection currentDirection) {
-        MapDirection newDirection = currentDirection.rotate(this.genes.get(currentGen).toInteger());
-        return newDirection;
+        return currentDirection.rotate(this.genes.get(currentGen).toInteger());
     }
 
     @Override
@@ -32,6 +31,7 @@ public class AbstractGenom implements Genom {
     @Override
     public void nextGen(){
         this.currentGen += 1;
+        this.currentGen = this.currentGen % parameters.getGenomLength();
     }
 
     // Creating Gen list
