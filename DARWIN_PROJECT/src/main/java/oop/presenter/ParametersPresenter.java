@@ -11,6 +11,8 @@ import oop.model.*;
 
 import java.io.IOException;
 
+import static com.sun.javafx.application.ParametersImpl.getParameters;
+
 
 public class ParametersPresenter{
     private int CELL_WIDTH = 40;
@@ -91,11 +93,11 @@ public class ParametersPresenter{
             SimulationPresenter presenter = loader.getController();
             WorldApp.configureSecondStage(secondStage, viewRoot);
             secondStage.show();
-//            getParameters().getRaw();
 
             MapChangeListener observer = new ConsoleMapDisplay();
             presenter.setWorldmap(map);
             presenter.setParameters(worldParameters, animalParameters);
+            presenter.drawColorBox();
             map.addObserver(presenter);
             map.addObserver(observer);
 

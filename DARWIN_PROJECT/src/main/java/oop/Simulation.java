@@ -1,21 +1,22 @@
 package oop;
 
 import oop.model.*;
-import java.util.ArrayList;
+
 import java.util.Iterator;
-import java.util.List;
 
 public class Simulation implements Runnable{
 //    public List<Animal> animals;
     public WorldMap map;
     public AnimalParameters animalParameters;
-    public int simulationDay;
+    public boolean run;
+    public int day;
 
 
     public Simulation(AbstractWorldMap map, AnimalParameters animalParameters, WorldParameters worldParameters){
         this.animalParameters = animalParameters;
         this.map = map;
-        this.simulationDay = 50;
+        this.run = true;
+        this.day = 0;
 
         RandomAnimalsPositionGenerator randomPositionGenerator = new RandomAnimalsPositionGenerator(worldParameters.getMapWidth(), worldParameters.getMapHeight(), worldParameters.getStartAnimalNumber());
         Iterator<Vector2d> positionsIterator = randomPositionGenerator.iterator();
@@ -29,10 +30,17 @@ public class Simulation implements Runnable{
 
     @Override
     public void run() {
-        for(int d=0; d<this.simulationDay; d++){
-            map.dayRoutine(d);
+        while(run){
+            map.dayRoutine(this.day);
+            this.day += 1;
         }
     }
+
+    public void pause(){
+        this.run=false;
+    }
+
+
 
     public WorldMap getMap() {
         return this.map;
