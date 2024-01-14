@@ -1,51 +1,42 @@
 package oop.model;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
+import oop.presenter.SimulationPresenter;
+
+import java.io.*;
 import java.util.List;
 
+
 public class StatsSaver implements  MapChangeListener{
+    private SimulationPresenter simulationPresenter;
     private Statistics statistics;
     private File csvFile;
     private FileWriter fileWriter;
 
 
-    public StatsSaver(Statistics statistics){
-        this.csvFile = new File("/DriveName/Users/UserName/Desktop/Statystyki.csv");
-        this.statistics = statistics;
-        try {
-            this.fileWriter = new FileWriter(this.csvFile);
-        } catch (IOException e) {
-
-        }
+    public StatsSaver(SimulationPresenter simulationPresenter){
+        this.csvFile = new File("./Statystyki.csv");
+        this.simulationPresenter = simulationPresenter;
     }
+
+    public void setStatistics(){
+        this.statistics = this.simulationPresenter.getStats() ;
+    }
+
+
     @Override
     public void mapChanged(WorldMap worldMap, String message){
-        for (String data : statistics.getAllStats()) {
-            StringBuilder line = new StringBuilder();
-            for (int i = 0; i < data.length(); i++) {
-                line.append("\"");
-                line.append(data.substring(i,i+1).replaceAll("\"","\"\""));
-                line.append("\"");
-                if (i != data.length() - 1) {
-                    line.append(',');
-                }
+        setStatistics();
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(this.csvFile, true))) {
+            StringBuilder rowBuilder = new StringBuilder();
+            for(String value: this.statistics.getAllStats()){
+                rowBuilder.append(value);
             }
-            line.append("\n");
-            try {
-                fileWriter.write(line.toString());
-            } catch (IOException e) {
-
-            }
-        }
-    }
-
-    public void closeFile(){
-        try {
-            this.fileWriter.close();
+            writer.write(rowBuilder.toString());
+            writer.newLine();
         } catch (IOException e) {
+            e.printStackTrace();
         }
+
     }
+
 }

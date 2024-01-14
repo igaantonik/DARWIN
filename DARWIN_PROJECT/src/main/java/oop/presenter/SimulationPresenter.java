@@ -59,6 +59,10 @@ public class SimulationPresenter implements MapChangeListener {
         this.worldParameters = worldParameters;
     }
 
+    public Statistics getStats(){
+        return this.stats;
+    }
+
     // legend
 
     public void drawColorBox(){

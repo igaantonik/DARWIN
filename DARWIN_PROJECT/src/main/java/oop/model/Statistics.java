@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 
 public class Statistics implements ChangeStats{
     private int fields;
-    private Simulation simulation;
+//    private Simulation simulation;
     private int animalsNumber;
     private int plantsNumber;
     private int freeFields;
@@ -21,7 +21,7 @@ public class Statistics implements ChangeStats{
     private WorldMap map;
 
     public Statistics(Simulation simulation){
-        this.simulation = simulation;
+//        this.simulation = simulation;
         this.map = simulation.getMap();
         this.fields = map.getHeight() * map.getWidth();
     }

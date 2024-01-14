@@ -16,7 +16,7 @@ import static com.sun.javafx.application.ParametersImpl.getParameters;
 
 
 public class ParametersPresenter{
-    public CheckBox fileSaving;
+
     private int CELL_WIDTH = 40;
     private int CELL_HEIGHT = 40;
 
@@ -61,6 +61,8 @@ public class ParametersPresenter{
 
     @FXML
     public ComboBox genomVariantBox;
+    @FXML
+    public CheckBox fileSaving;
 
 
 
@@ -102,6 +104,10 @@ public class ParametersPresenter{
             presenter.drawColorBox();
             map.addObserver(presenter);
             map.addObserver(observer);
+            if(fileSaving.isSelected()){
+                StatsSaver statsSaver = new StatsSaver(presenter);
+                map.addObserver(statsSaver);
+            }
 
         } catch(IllegalArgumentException ignored){
             System.out.println(ignored.getMessage());
