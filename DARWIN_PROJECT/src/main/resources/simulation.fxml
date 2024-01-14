@@ -73,7 +73,7 @@
     <bottom>
         <HBox>
             <Button text="Rozpocznij symulacje" onAction="#onSimulationStartClicked"/>
-            <Button text="Start" onAction="#resumeSimulation"/>
+            <Button text="Resume" onAction="#resumeSimulation"/>
             <Button text="Stop" onAction="#stopSimulation"/>
         </HBox>
     </bottom>

@@ -40,6 +40,10 @@ public class Simulation implements Runnable{
         this.run=false;
     }
 
+    public void resume(){
+        this.run=true;
+    }
+
 
 
     public WorldMap getMap() {
