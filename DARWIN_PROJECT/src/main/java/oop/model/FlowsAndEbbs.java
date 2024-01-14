@@ -15,7 +15,7 @@ public class FlowsAndEbbs extends AbstractWorldMap implements WorldMap{
         this.worldParameters = worldParameters;
         this.mapVisualizer = new MapVisualizer(this);
         this.basinsNumber = worldParameters.getBasinsNumber();
-        //this.basins = basins;
+        this.basins = basins;
         placePlants(worldParameters.getStartPlantNumber());
         placeBasins(this.basinsNumber);
     }
@@ -79,7 +79,8 @@ public class FlowsAndEbbs extends AbstractWorldMap implements WorldMap{
         for(WaterBasin basin: basins){
             basin.changeBoundaries();
             basin.changeFlowDirection(basin.getFlowDirection().next().next());
-        }
+             }
+
     }
 
 
@@ -118,8 +119,11 @@ public class FlowsAndEbbs extends AbstractWorldMap implements WorldMap{
         for (WaterBasin basin: basins){
             for(int i = basin.getLowerLeft().getX(); i<= basin.getUpperRight().getX(); i++){
                 for(int j = basin.getLowerLeft().getY(); j<basin.getUpperRight().getY();j++){
-                    Water water = new Water(new Vector2d(i,j));
-                    result.put(new Vector2d(i,j),water);
+                    if(i>=0 && i<=width && j>=0 &&j <=height){
+                        Water water = new Water(new Vector2d(i,j));
+                        result.put(new Vector2d(i,j),water);
+                    }
+
                 }
 
             }

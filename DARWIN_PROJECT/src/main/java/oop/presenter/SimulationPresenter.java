@@ -105,7 +105,6 @@ public class SimulationPresenter implements MapChangeListener {
 
         }
     }
-
     private void clearGrid() {
         mapGrid.getChildren().retainAll(mapGrid.getChildren().get(0));
         mapGrid.getColumnConstraints().clear();
@@ -169,6 +168,5 @@ public class SimulationPresenter implements MapChangeListener {
     public void stopSimulation(ActionEvent actionEvent) {
         this.simulation.pause();
     }
-
 
 }
