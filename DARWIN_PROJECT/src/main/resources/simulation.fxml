@@ -44,14 +44,17 @@
                 <Label fx:id="plantsNumStats" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
                 <Label text="Wolne pola" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
                 <Label fx:id="freeFieldsStats" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
-                <Label text="Najpopularniejszy genom" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
-                <Label fx:id="popularGenomeStats" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
                 <Label text="Średnia energia zwierząt" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
                 <Label fx:id="averageEnergyStats" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
                 <Label text="Średnia długość życia" GridPane.rowIndex="5" GridPane.columnIndex="0"/>
                 <Label fx:id="averageLifeStats" GridPane.rowIndex="5" GridPane.columnIndex="1"/>
                 <Label text="Średnia ilość dzieci" GridPane.rowIndex="6" GridPane.columnIndex="0"/>
                 <Label fx:id="averageChildrenNumStats" GridPane.rowIndex="6" GridPane.columnIndex="1"/>
+                <Label text="Najpopularniejszy genom" GridPane.rowIndex="7" GridPane.columnIndex="0"/>
+                <Label fx:id="popularGenomeStats" GridPane.rowIndex="7" GridPane.columnIndex="1"/>
+                <HBox GridPane.rowIndex="8" GridPane.columnIndex="0">
+                    <Button text="Zwierzaki z najpopularniejszym genomem" onAction="#highlightAnimals" />
+                </HBox>
             </GridPane>
 
         </VBox>

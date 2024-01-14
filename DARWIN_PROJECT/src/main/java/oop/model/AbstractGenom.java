@@ -14,6 +14,10 @@ public class AbstractGenom implements Genom{
         return genes;
     }
 
+    public int getCurrentGen(){
+        return currentGen;
+    }
+
     @Override
     public boolean equal(AbstractGenom other) {
         if(this.genes.size() != other.getGenes().size()){

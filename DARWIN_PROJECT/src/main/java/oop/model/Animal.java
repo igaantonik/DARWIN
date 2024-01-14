@@ -14,6 +14,7 @@ public class Animal implements MapElement, Comparable<Animal>{
     private List<Animal> children;
     private AnimalParameters parameters;
     private boolean isDeceased;
+    private int plantsEaten;
 
     // Creating Animal
     public Animal(Vector2d position, AnimalParameters parameters){
@@ -26,6 +27,7 @@ public class Animal implements MapElement, Comparable<Animal>{
         this.direction = MapDirection.values()[rand.nextInt(8)];
         this.isDeceased = false;
         this.energy = new Energy(this.parameters.getAnimalStartEnergy(), this.parameters.getEnergyToReproduce());
+        this.plantsEaten = 0;
     }
 
     public Animal(Vector2d position, AnimalParameters parameters, int energylevel, Genom genom){
@@ -37,6 +39,8 @@ public class Animal implements MapElement, Comparable<Animal>{
         this.direction = MapDirection.NORTH;
         this.isDeceased = false;
         this.energy = new Energy(energylevel, this.parameters.getEnergyToReproduce());
+        this.plantsEaten = 0;
+
     }
 
     // Getting atributs
@@ -59,6 +63,9 @@ public class Animal implements MapElement, Comparable<Animal>{
     public Vector2d getPosition() {
         return this.position;
     }
+
+    public boolean isDeceased(){ return this.isDeceased;}
+    public int getPlantsEaten(){ return this.plantsEaten;}
 
 
     // Statistics
@@ -96,6 +103,7 @@ public class Animal implements MapElement, Comparable<Animal>{
 
     public void eat(){
         this.energy.addEnergy(parameters.getEatEnergy(), parameters.getAnimalStartEnergy());
+        this.plantsEaten +=1;
     }
 
     public boolean isAlive(){
