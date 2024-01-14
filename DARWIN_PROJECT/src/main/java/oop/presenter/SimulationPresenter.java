@@ -13,6 +13,7 @@ import oop.model.*;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Vector;
 
 
 public class SimulationPresenter implements MapChangeListener {
@@ -169,4 +170,11 @@ public class SimulationPresenter implements MapChangeListener {
         this.simulation.pause();
     }
 
+    public void highlightAnimals(ActionEvent actionEvent) {
+        for(Vector2d vector: this.stats.animalsWithMostPopularGenom()){
+            Vector2d gridVector = vectorOnGrid(vector);
+            mapGrid.add(new  Circle(20, Color.BLUEVIOLET), gridVector.getX(), gridVector.getY());
+        }
+
+    }
 }

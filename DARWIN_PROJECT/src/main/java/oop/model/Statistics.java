@@ -112,6 +112,15 @@ public class Statistics implements ChangeStats{
         return this.mostGenom;
     }
 
+    public List<Vector2d> animalsWithMostPopularGenom(){
+        List<Vector2d> placesToHiglight = new ArrayList<>();
+        for(Animal animal: this.map.getAllAnimals()){
+            if(animal.getGenom() == this.mostGenom){
+                placesToHiglight.add(animal.getPosition());
+            }
+        }
+        return  placesToHiglight;
+    }
     public String getAnimalsNumber() {return Integer.toString(this.animalsNumber);}
 
     public String getMostGenom() {

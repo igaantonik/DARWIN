@@ -56,9 +56,8 @@
             </HBox>
 
 
-
-            <Label text="Ile zbiornikow" GridPane.columnIndex="0" GridPane.rowIndex="13"/>
-            <Spinner fx:id="basinsSpinner" GridPane.columnIndex="0" GridPane.rowIndex="14"
+            <Label fx:id="basinsLabel" text="Ile zbiornikow" GridPane.columnIndex="0" GridPane.rowIndex="14"/>
+            <Spinner fx:id="basinsSpinner" GridPane.columnIndex="0" GridPane.rowIndex="15"
                      min="0" max="10" initialValue="0"/>
 
 
