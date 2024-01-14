@@ -1,6 +1,7 @@
 package oop;
 
 import oop.model.Vector2d;
+import oop.model.Water;
 import oop.model.WorldMap;
 
 /**
@@ -76,12 +77,17 @@ public class MapVisualizer {
     private String drawObject(Vector2d currentPosition) {
         if (this.map.isOccupied(currentPosition)) {
             Object object = this.map.animalAt(currentPosition);
-            if (object != null) {
-                return object.toString();
+            Object object2 = this.map.plantAt(currentPosition);
+            boolean object3 = this.map.waterAt(currentPosition);
+            if (object3) {
+                return "~";
+            }
+            else if (object != null){
+
+                    return object.toString();
             }
             else{
-                Object object2 = this.map.plantAt(currentPosition);
-                if (object2 != null) {
+                if (object2 != null){
                     return object2.toString();
                 }
             }

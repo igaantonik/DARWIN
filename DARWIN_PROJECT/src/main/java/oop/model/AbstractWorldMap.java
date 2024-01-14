@@ -26,14 +26,15 @@ public abstract class AbstractWorldMap implements WorldMap {
             listeners.remove(i);
         }
     }
-    private void mapChanged(String message) {
+    @Override
+    public void mapChanged(String message) {
         for (MapChangeListener observer : listeners) {
             observer.mapChanged(this, message);
         }
     }
 
     // Day
-    public void dayRoutine(){
+    public void dayRoutine(int day){
         lookForDeadAnimals();
         moveAllAnimals();
         dinner();
@@ -246,10 +247,22 @@ public abstract class AbstractWorldMap implements WorldMap {
         return uuid;
     }
 
+
+    public boolean waterAt(Vector2d position){return false;}
+
+    public List<Animal> getAllAnimals(){return allAnimals;}
+  
+    public Map<Vector2d, List<Animal>> getAliveAnimals(){return aliveAnimals;}
+  
+    public List<Animal> getDeceasedAnimals(){return deceased_animals;}
+  
+    public Map<Vector2d, Plant> getAllPlants(){return plants;}
+
     @Override
     public Boundary getCurrentBounds() {
         return new Boundary(new Vector2d(0,0), new Vector2d(this.width, this.height));
     }
+
 
     public int getHeight() {
         return height;

@@ -50,6 +50,6 @@ public class WorldParametersBuilder {
     }
 
     public WorldParameters build(){
-        return new WorldParameters(mapHeight,mapWariant,mapWidth,startAnimalNumber, startPlantNumber, dailyPlantsAdded );
+        return new WorldParameters(mapHeight,mapWariant,mapWidth,startAnimalNumber, startPlantNumber, dailyPlantsAdded, basinsNumber );
     }
 }

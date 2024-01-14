@@ -18,4 +18,9 @@ public class Water implements MapElement {
     public void animalDrowned(Animal animal){
         //animal.drowned();
     }
+
+    @Override
+    public String toString() {
+        return "~";
+    }
 }
