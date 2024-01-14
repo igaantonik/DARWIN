@@ -14,4 +14,6 @@ public interface Genom {
 
     List<Gen> getGenes();
 
+    boolean equal(AbstractGenom genom);
+
 }

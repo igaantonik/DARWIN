@@ -17,7 +17,7 @@ public class FlowsAndEbbs extends AbstractWorldMap implements WorldMap{
         this.basinsNumber = worldParameters.getBasinsNumber();
         //this.basins = basins;
         placePlants(worldParameters.getStartPlantNumber());
-        placeBasins(basinsNumber);
+        placeBasins(this.basinsNumber);
     }
 
     public void placeBasins(int amount) {
@@ -60,6 +60,11 @@ public class FlowsAndEbbs extends AbstractWorldMap implements WorldMap{
             changeFlow();
         }
         mapChanged("mapa sie zmieniła");
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 

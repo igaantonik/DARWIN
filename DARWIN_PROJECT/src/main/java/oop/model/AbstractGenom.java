@@ -2,7 +2,7 @@ package oop.model;
 
 import java.util.*;
 
-public class AbstractGenom implements Genom {
+public class AbstractGenom implements Genom{
     protected List<Gen> genes;
     protected int currentGen;
 
@@ -12,6 +12,23 @@ public class AbstractGenom implements Genom {
     // Getting atributes
     public List<Gen> getGenes() {
         return genes;
+    }
+
+    @Override
+    public boolean equal(AbstractGenom other) {
+        if(this.genes.size() != other.getGenes().size()){
+            return false;
+        }
+        for(int i=0; i< this.genes.size(); i++){
+            if(this.genes.get(i) != other.getGenes().get(i)){
+                return false;
+            }
+        }
+        return true;
+    }
+    @Override
+    public int hashCode() {
+        return Objects.hash(genes);
     }
 
     // Moving animal
@@ -84,8 +101,6 @@ public class AbstractGenom implements Genom {
         }
         return newgenes;
     }
-
-
 
 
 }

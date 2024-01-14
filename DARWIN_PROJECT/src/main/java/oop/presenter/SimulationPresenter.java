@@ -75,7 +75,7 @@ public class SimulationPresenter implements MapChangeListener {
         return new Vector2d(x,y);
     }
 
-    public void drawMap(){
+    public void drawMap() {
         this.clearGrid();
         this.drawStat();
         this.boundary = worldmap.getCurrentBounds();
@@ -87,18 +87,20 @@ public class SimulationPresenter implements MapChangeListener {
         mapGrid.getColumnConstraints().add(new ColumnConstraints(CELL_WIDTH));
         mapGrid.getRowConstraints().add(new RowConstraints(CELL_HEIGHT));
 
-        for(int i = 1; i < this.width; i++){
+        for (int i = 1; i < this.width; i++) {
             mapGrid.getColumnConstraints().add(new ColumnConstraints(CELL_WIDTH));
         }
-        for(int j = 1; j < this.height; j++){
+        for (int j = 1; j < this.height; j++) {
             mapGrid.getRowConstraints().add(new RowConstraints(CELL_HEIGHT));
         }
         Map<Vector2d, MapElement> elements = worldmap.getElements();
-        for(Vector2d vector: elements.keySet()){
+        for (Vector2d vector : elements.keySet()) {
             Vector2d gridVector = vectorOnGrid(vector);
             mapGrid.add(getElement(elements.get(vector)), gridVector.getX(), gridVector.getY());
 
         }
+    }
+
     private void clearGrid() {
         mapGrid.getChildren().retainAll(mapGrid.getChildren().get(0));
         mapGrid.getColumnConstraints().clear();
@@ -163,6 +165,5 @@ public class SimulationPresenter implements MapChangeListener {
         this.simulation.pause();
     }
 
-    public void stopSimulation(ActionEvent actionEvent) {
-    }
+
 }

@@ -2,6 +2,9 @@ package oop.model;
 
 import oop.Simulation;
 
+import javax.lang.model.type.NullType;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -25,7 +28,6 @@ public class Statistics implements ChangeStats{
         this.averageEnergy = checkAverageEnergy();
         this.averageLifeTime = checkAverageLifetime();
         this.averageChildren = checkAverageChildren();
-
     }
     @Override
     public void statsChanged() { // TO DO
@@ -84,4 +86,21 @@ public class Statistics implements ChangeStats{
 
         return averageChildren/animalsAmount;
     }
+
+    public Genom checkMostPopularGenom(){
+        HashMap<AbstractGenom, Integer> genoms = new HashMap<>();
+        for(Animal animal:this.map.getAllAnimals()){
+            if (genoms.containsKey(animal.getGenom())){
+                genoms.replace((AbstractGenom) animal.getGenom(), genoms.get(animal.getGenom())+1);
+                this.mostGenom = animal.getGenom();
+            }
+        }
+        for(Genom genom: genoms.keySet()){
+            if(genoms.get(genom) > genoms.get(this.mostGenom)){
+                this.mostGenom = genom;
+            }
+        }
+        return this.mostGenom;
+    }
+
 }
