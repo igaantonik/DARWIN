@@ -15,7 +15,7 @@ public class RandomPlantPositionGenerator implements Iterable<Vector2d> {
         this.maxHeight = maxHeight;
         this.amount = amount;
 
-        for (int x = 0; x <= maxWidth; x++) {
+        for (int x = 0; x < maxWidth; x++) {
             for (int y = 0; y < (maxHeight*4)/10; y++) {
                 availablePositions.add(new Vector2d(x, y));
             }
@@ -24,7 +24,7 @@ public class RandomPlantPositionGenerator implements Iterable<Vector2d> {
             }
         }
 
-        for (int x = 0; x <= maxWidth; x++) {
+        for (int x = 0; x < maxWidth; x++) {
             for (int y = (maxHeight*4)/10; y < (maxHeight*6)/10; y++) {
                 junglePositions.add(new Vector2d(x, y));
             }

@@ -26,7 +26,8 @@ public class SimulationPresenter implements MapChangeListener {
     private int height;
     private int width;
     private Simulation simulation;
-    private SimulationEngine engine;
+    private Statistics stats;
+
 
     @FXML
     private GridPane mapGrid;
@@ -63,7 +64,7 @@ public class SimulationPresenter implements MapChangeListener {
     public void drawColorBox(){
         for (double i=0; i <= animalParameters.getAnimalStartEnergy(); i+= (double) animalParameters.getAnimalStartEnergy() /20) {
             Rectangle colorRect = new Rectangle(10, 10);
-            colorRect.setFill( new Color((double)i / (double) animalParameters.getAnimalStartEnergy(),0.5, 0.5, 0.6));
+            colorRect.setFill( new Color((double)i / (double) animalParameters.getAnimalStartEnergy(),0, 0, 0.6));
             animalColors.getChildren().add(colorRect);
         }
     }
@@ -115,7 +116,7 @@ public class SimulationPresenter implements MapChangeListener {
 
     public Color getColor(MapElement element){
         if(element instanceof Animal){
-            return(new Color((double) (double)((Animal) element).getEnergyLevel() /animalParameters.getAnimalStartEnergy(), 0.5, 0.5,0.6));
+            return(new Color((double) (double)((Animal) element).getEnergyLevel() /animalParameters.getAnimalStartEnergy(), 0, 0,0.6));
         } else if (element instanceof Plant){
             return(new Color(0.2, 1, 0.3, 0.5));
         } else{
@@ -131,13 +132,14 @@ public class SimulationPresenter implements MapChangeListener {
 
     //statistitcs
     public void drawStat(){
-        this.animalNumStats.setText("");
-        this.averageEnergyStats.setText("");
-        this.averageLifeStats.setText("");
-        this.plantsNumStats.setText("");
-        this.freeFieldsStats.setText("");
-        this.popularGenomeStats.setText("");
-        this.averageChildrenNumStats.setText("");
+        stats.statsChanged();
+        this.animalNumStats.setText(stats.getAnimalsNumber());
+        this.averageEnergyStats.setText(stats.getAverageEnergy());
+        this.averageLifeStats.setText(stats.getAverageLifeTime());
+        this.plantsNumStats.setText(stats.getPlantsNumber());
+        this.freeFieldsStats.setText(stats.getFreeFields());
+        this.popularGenomeStats.setText(stats.getMostGenom());
+        this.averageChildrenNumStats.setText(stats.getAverageChildren());
     }
 
     //button events
@@ -145,8 +147,8 @@ public class SimulationPresenter implements MapChangeListener {
         try{
             Simulation simulation = new Simulation(worldmap, animalParameters, worldParameters);
             this.simulation = simulation;
+            this.stats = new Statistics(simulation);
             SimulationEngine engine = new SimulationEngine(List.of(simulation));
-            this.engine = engine;
             engine.runAsync();
         } catch(IllegalArgumentException ignored){
             System.out.println(ignored.getMessage());
@@ -157,7 +159,6 @@ public class SimulationPresenter implements MapChangeListener {
     public void resumeSimulation(ActionEvent actionEvent) {
         this.simulation.resume();
         SimulationEngine engine = new SimulationEngine(List.of(this.simulation));
-        this.engine = engine;
         engine.runAsync();
     }
 
