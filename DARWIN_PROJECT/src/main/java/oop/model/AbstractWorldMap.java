@@ -3,10 +3,11 @@ package oop.model;
 import java.util.*;
 
 public abstract class AbstractWorldMap implements WorldMap {
-    protected List<Animal> allAnimals = new ArrayList<>();
-    protected Map<Vector2d, List<Animal>> aliveAnimals = new HashMap<>();
+    protected List<Animal> livingAnimals = new ArrayList<>();
+    protected Map<Vector2d, List<Animal>> aliveAnimalsMap = new HashMap<>();
     protected List<Animal> deceased_animals = new ArrayList<>();
     protected Map<Vector2d, Plant> plants = new HashMap<>();
+    protected Boundary boundary;
     protected int height;
     protected int width;
     protected WorldParameters worldParameters;
@@ -38,7 +39,12 @@ public abstract class AbstractWorldMap implements WorldMap {
         dinner();
         reproduction();
         dailyPlantGrow();
-        mapChanged("mapa sie zmieniła");
+        mapChanged("");
+        try {
+            Thread.sleep(200);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 
@@ -76,18 +82,18 @@ public abstract class AbstractWorldMap implements WorldMap {
     @Override
     public boolean placeAnimal(Animal animal){
         Vector2d position = animal.getPosition();
-        if(!allAnimals.contains(animal)){
-            allAnimals.add(animal);
+        if(!livingAnimals.contains(animal)){
+            livingAnimals.add(animal);
         }
         if (!canMoveTo(position)) {
             return false;
         }
-        if(aliveAnimals.containsKey(position)){
+        if(aliveAnimalsMap.containsKey(position)){
             List<Animal> old_list;
-            old_list = aliveAnimals.get(position);
+            old_list = aliveAnimalsMap.get(position);
             old_list.add(animal);
-            aliveAnimals.replace(position, old_list);
-        } else aliveAnimals.put(position, new ArrayList<Animal>(List.of(animal)));
+            aliveAnimalsMap.replace(position, old_list);
+        } else aliveAnimalsMap.put(position, new ArrayList<Animal>(List.of(animal)));
 //        mapChanged("animal added");
         return true;
     }
@@ -98,30 +104,31 @@ public abstract class AbstractWorldMap implements WorldMap {
         Vector2d position = animal.getPosition();
         animal.move(this, this.width);
         placeAnimal(animal);
-
     }
 
     @Override
     public void removeAnimal(Animal animal){
         Vector2d position = animal.getPosition();
-        List<Animal> animals = aliveAnimals.get(position);
-        animals.remove(animal);
+        List<Animal> animals = aliveAnimalsMap.get(position);
+        if(!animals.isEmpty()){
+            animals.remove(animal);
+        }
         if(animals.isEmpty()){
-            aliveAnimals.remove(position);
+            aliveAnimalsMap.remove(position);
         } else {
-            aliveAnimals.replace(position, animals);
+            aliveAnimalsMap.replace(position, animals);
         }
     }
     @Override
     public void deadAnimal(Animal animal){
         removeAnimal(animal);
-        allAnimals.remove(animal);
+        livingAnimals.remove(animal);
         deceased_animals.add(animal);
     }
 
     @Override
     public void moveAllAnimals(){
-        for(Animal animal:allAnimals){
+        for(Animal animal: livingAnimals){
             this.move(animal);
         }
     }
@@ -130,9 +137,9 @@ public abstract class AbstractWorldMap implements WorldMap {
     public void dinner(){
         List<Plant> plantsEaten = new ArrayList<>();
         for(Vector2d position: plants.keySet()){
-            if(aliveAnimals.containsKey(position)){
+            if(aliveAnimalsMap.containsKey(position)){
                 sortAliveAnimalsInVector(position);
-                List<Animal> animalsInVector = aliveAnimals.get(position);
+                List<Animal> animalsInVector = aliveAnimalsMap.get(position);
                 Animal animal = animalsInVector.get(animalsInVector.size()-1);
                 animal.eat();
                 plantsEaten.add(plants.get(position));
@@ -145,28 +152,28 @@ public abstract class AbstractWorldMap implements WorldMap {
 
     @Override
     public void reproduction(){
-        for(Vector2d position: aliveAnimals.keySet()){
+        for(Vector2d position: aliveAnimalsMap.keySet()){
             sortAliveAnimalsInVector(position);
-            List<Animal> animals = aliveAnimals.get(position);
+            List<Animal> animals = aliveAnimalsMap.get(position);
             List<Animal> newAnimals = new ArrayList<>();
-            int i=0;
-            while(i + 1 < animals.size() && animals.get(i+1).canReproduce()){
+            int i=animals.size()-1;
+            while(i > 0 && animals.get(i-1).canReproduce()){
                 Animal animal1 = animals.get(i);
-                Animal animal2 = animals.get(i+1);
+                Animal animal2 = animals.get(i-1);
                 Animal child = animal1.reproduce(animal2, position);
                 newAnimals.add(child);
-                allAnimals.add(child);
-                i++;
+                livingAnimals.add(child);
+                i -= 2;
             }
             animals.addAll(newAnimals);
-            aliveAnimals.replace(position, animals);
+            aliveAnimalsMap.replace(position, animals);
         }
     }
 
     @Override
     public void lookForDeadAnimals(){
         List<Animal> deceasedAnimals = new ArrayList<>();
-        for(Animal animal: allAnimals){
+        for(Animal animal: livingAnimals){
             if(!animal.isAlive()){
                 deceasedAnimals.add(animal);
             }
@@ -180,10 +187,10 @@ public abstract class AbstractWorldMap implements WorldMap {
 
     @Override
     public void sortAliveAnimalsInVector(Vector2d position){
-        List<Animal> animals = aliveAnimals.get(position);
+        List<Animal> animals = aliveAnimalsMap.get(position);
         if(!animals.isEmpty()){
             Collections.sort(animals);
-            aliveAnimals.replace(position, animals);
+            aliveAnimalsMap.replace(position, animals);
         }
     }
 
@@ -200,7 +207,7 @@ public abstract class AbstractWorldMap implements WorldMap {
 
     @Override
     public boolean isAnimal(Vector2d position){
-        return aliveAnimals.get(position) != null;
+        return aliveAnimalsMap.get(position) != null;
     }
 
     @Override
@@ -210,7 +217,7 @@ public abstract class AbstractWorldMap implements WorldMap {
 
     @Override
     public List animalAt(Vector2d position) {
-        return aliveAnimals.get(position);
+        return aliveAnimalsMap.get(position);
     }
 
     @Override
@@ -221,9 +228,13 @@ public abstract class AbstractWorldMap implements WorldMap {
     @Override
     public Map<Vector2d,MapElement> getElements() {
         Map<Vector2d,MapElement> result = new HashMap<>();
-        for (Vector2d key : aliveAnimals.keySet()){
-            for(Animal animal: aliveAnimals.get(key)){
-                result.put(key, animal);
+        for (Vector2d key : aliveAnimalsMap.keySet()){
+            sortAliveAnimalsInVector(key);
+            result.put(key, aliveAnimalsMap.get(key).get(0));
+        }
+        for(Vector2d vector: this.plants.keySet()){
+            if(!result.containsKey(vector)) {
+                result.put(vector, plantAt(vector));
             }
         }
         return result;
@@ -235,10 +246,16 @@ public abstract class AbstractWorldMap implements WorldMap {
         return uuid;
     }
 
+    @Override
+    public Boundary getCurrentBounds() {
+        return new Boundary(new Vector2d(0,0), new Vector2d(this.width, this.height));
+    }
 
+    public int getHeight() {
+        return height;
+    }
 
-
-
-
-
+    public int getWidth() {
+        return width;
+    }
 }
