@@ -177,4 +177,12 @@ public class SimulationPresenter implements MapChangeListener {
         }
 
     }
+
+    public void highlightPlantsPreferences(ActionEvent actionEvent) {
+        for(Vector2d vector: this.stats.mostPreferedByPlants()){
+            Vector2d gridVector = vectorOnGrid(vector);
+            mapGrid.add(new  Circle(20, Color.DARKGREEN), gridVector.getX(), gridVector.getY());
+        }
+
+    }
 }
