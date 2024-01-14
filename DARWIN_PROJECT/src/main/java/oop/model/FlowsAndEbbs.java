@@ -90,8 +90,9 @@ public class FlowsAndEbbs extends AbstractWorldMap implements WorldMap{
 
     @Override
     public boolean canMoveTo(Vector2d position) {
-        return false;
+        return position.getY() >= 0 && position.getY() <= height - 1;
     }
+
     @Override
     public boolean isOccupied(Vector2d position) {
         return isPlant(position) || isAnimal(position) || waterAt(position);
