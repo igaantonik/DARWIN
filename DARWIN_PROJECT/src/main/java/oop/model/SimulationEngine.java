@@ -50,7 +50,6 @@ public class SimulationEngine {
     }
 
     public void runAsyncInThreadPool(){
-
         for(Simulation simulation: this.simulations){
             executorService.submit(new Thread(simulation));
         }

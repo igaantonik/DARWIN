@@ -96,7 +96,7 @@ public class Animal implements MapElement, Comparable<Animal>{
     }
 
     public void eat(){
-        this.energy.addEnergy(parameters.getEatEnergy());
+        this.energy.addEnergy(parameters.getEatEnergy(), parameters.getAnimalStartEnergy());
     }
 
     public boolean isAlive(){

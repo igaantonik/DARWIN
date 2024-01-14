@@ -32,8 +32,11 @@ public class Energy {
         return true;
     }
 
-    public void addEnergy(int addedenergy){
+    public void addEnergy(int addedenergy, int maxEnergy){
         this.energyLevel += addedenergy;
+        if(maxEnergy < this.energyLevel){
+            this.energyLevel = maxEnergy;
+        }
     }
 
     public void lostEnergy(int lostenergy){

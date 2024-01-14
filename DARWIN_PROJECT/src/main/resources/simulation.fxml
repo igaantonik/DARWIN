@@ -13,6 +13,13 @@
             fx:controller="oop.presenter.SimulationPresenter">
     <top>
     </top>
+    <left>
+        <VBox spacing="10">
+            <Label text="STATYSTYKI"/>
+            <Label text="Energia zwierzaków" />
+            <HBox fx:id="animalColors" />
+        </VBox>
+    </left>
     <center>
         <GridPane fx:id="mapGrid" gridLinesVisible="true" alignment="CENTER" />
     </center>
