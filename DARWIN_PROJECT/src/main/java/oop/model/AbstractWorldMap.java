@@ -110,6 +110,9 @@ public abstract class AbstractWorldMap implements WorldMap {
     @Override
     public void removeAnimal(Animal animal){
         Vector2d position = animal.getPosition();
+        if(!aliveAnimalsMap.containsKey(position)){
+            return;
+        }
         List<Animal> animals = aliveAnimalsMap.get(position);
         if(!animals.isEmpty()){
             animals.remove(animal);
@@ -184,7 +187,6 @@ public abstract class AbstractWorldMap implements WorldMap {
         }
     }
 
-    //posortowane rosnąco mozna uzyc i przy umieraniu zwierzakow jak i przy reprodukcji i zjadaniu roslin
 
     @Override
     public void sortAliveAnimalsInVector(Vector2d position){
@@ -194,9 +196,6 @@ public abstract class AbstractWorldMap implements WorldMap {
             aliveAnimalsMap.replace(position, animals);
         }
     }
-
-
-    // nadpisanie funkcji isoccupied dla flowsandebbs
 
 
     // Looking for elements in vector
@@ -250,9 +249,9 @@ public abstract class AbstractWorldMap implements WorldMap {
 
     public boolean waterAt(Vector2d position){return false;}
 
-    public List<Animal> getAllAnimals(){return allAnimals;}
+    public List<Animal> getAllAnimals(){return this.livingAnimals;}
   
-    public Map<Vector2d, List<Animal>> getAliveAnimals(){return aliveAnimals;}
+    public Map<Vector2d, List<Animal>> getAliveAnimals(){return this.aliveAnimalsMap;}
   
     public List<Animal> getDeceasedAnimals(){return deceased_animals;}
   

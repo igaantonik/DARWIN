@@ -30,7 +30,11 @@ public class Simulation implements Runnable{
     @Override
     public void run() {
         for(int d=0; d<this.simulationDay; d++){
-            map.dayRoutine();
+            map.dayRoutine(d);
         }
+    }
+
+    public WorldMap getMap() {
+        return this.map;
     }
 }
