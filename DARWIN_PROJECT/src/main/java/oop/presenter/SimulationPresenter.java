@@ -26,6 +26,7 @@ public class SimulationPresenter implements MapChangeListener {
     private int height;
     private int width;
     private Simulation simulation;
+    private SimulationEngine engine;
 
     @FXML
     private GridPane mapGrid;
@@ -143,6 +144,7 @@ public class SimulationPresenter implements MapChangeListener {
             Simulation simulation = new Simulation(worldmap, animalParameters, worldParameters);
             this.simulation = simulation;
             SimulationEngine engine = new SimulationEngine(List.of(simulation));
+            this.engine = engine;
             engine.runAsync();
         } catch(IllegalArgumentException ignored){
             System.out.println(ignored.getMessage());
@@ -150,9 +152,11 @@ public class SimulationPresenter implements MapChangeListener {
         }
     }
 
-
-
     public void resumeSimulation(ActionEvent actionEvent) {
+        this.simulation.resume();
+        SimulationEngine engine = new SimulationEngine(List.of(this.simulation));
+        this.engine = engine;
+        engine.runAsync();
     }
 
     public void stopSimulation(ActionEvent actionEvent) {
