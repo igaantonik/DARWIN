@@ -16,4 +16,5 @@ public interface Genom {
 
     boolean equal(AbstractGenom genom);
 
+    int getCurrentGen();
 }
