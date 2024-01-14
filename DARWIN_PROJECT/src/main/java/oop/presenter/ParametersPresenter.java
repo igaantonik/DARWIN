@@ -22,6 +22,9 @@ public class ParametersPresenter{
     public Spinner heightSpinner;
 
     @FXML
+    public Spinner basinsSpinner;
+
+    @FXML
     public Spinner widthSpinner;
 
     @FXML
@@ -69,6 +72,7 @@ public class ParametersPresenter{
                     .setMapHeight((int) heightSpinner.getValue())
                     .setMapWariant(mapVariantBox.getSelectionModel().getSelectedIndex())
                     .setDailyPlantsAdded((int) dailyPlantsNumSpinner.getValue())
+                    .setBasinsNumber((int) basinsSpinner.getValue())
                     .setMapWidth((int) widthSpinner.getValue())
                     .setStartPlantNumber((int) plantNumSpinner.getValue())
                     .build();
