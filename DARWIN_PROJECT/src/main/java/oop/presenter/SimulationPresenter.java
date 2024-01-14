@@ -52,28 +52,16 @@ public class SimulationPresenter implements MapChangeListener {
 
         mapGrid.getColumnConstraints().add(new ColumnConstraints(CELL_WIDTH));
         mapGrid.getRowConstraints().add(new RowConstraints(CELL_HEIGHT));
-
-//        Label yx = new Label("y\\x");
-//        GridPane.setHalignment(yx, HPos.CENTER);
-//        mapGrid.add(yx, 0, 0);
+        
         for(int i = 1; i <= this.width; i++){
-//            Label label = new Label(Integer.toString(x));
-//            mapGrid.add(label,i, 0);
-//            GridPane.setHalignment(label, HPos.CENTER);
             mapGrid.getColumnConstraints().add(new ColumnConstraints(CELL_WIDTH));
             }
         for(int j = 1; j <= this.height; j++){
-//            Label label = new Label(Integer.toString(y));
-//            mapGrid.add(label,0, j);
-//            GridPane.setHalignment(label, HPos.CENTER);
             mapGrid.getRowConstraints().add(new RowConstraints(CELL_HEIGHT));
         }
         Map<Vector2d, MapElement> elements = worldmap.getElements();
         for(Vector2d vector: elements.keySet()){
             Vector2d gridVector = vectorOnGrid(vector);
-            Label label = new Label();
-            label.setBackground(new Background(new BackgroundFill()));
-            // zmieniaj kolorkiii
             mapGrid.add(new Label(elements.get(vector).toString()), gridVector.getX(), gridVector.getY());
         }
 
@@ -97,9 +85,6 @@ public class SimulationPresenter implements MapChangeListener {
             Simulation simulation = new Simulation(worldmap, animalParameters, worldParameters);
             simulation.run();
             SimulationEngine engine = new SimulationEngine(List.of(simulation));
-//            List<Vector2d> positions = List.of(new Vector2d(1,1), new Vector2d(5,5));
-//            Simulation simulation = new Simulation();
-//            SimulationEngine engine = new SimulationEngine(List.of(simulation));
             engine.runAsync();
         } catch(IllegalArgumentException ignored){
             System.out.println(ignored.getMessage());
@@ -116,5 +101,8 @@ public class SimulationPresenter implements MapChangeListener {
 
     public void resumeSimnulation(ActionEvent actionEvent) {
 
+    }
+
+    public void stopSimulation(ActionEvent actionEvent) {
     }
 }

@@ -20,6 +20,7 @@
         <HBox>
             <Button text="Nowa Symulacja" onAction="#onSimulationStartClicked"/>
             <Button text="Start" onAction="#resumeSimnulation"/>
+            <Button text="Stop" onAction="#stopSimulation"/>
         </HBox>
     </bottom>
 </BorderPane>
