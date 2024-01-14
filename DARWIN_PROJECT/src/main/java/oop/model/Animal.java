@@ -14,7 +14,6 @@ public class Animal implements MapElement, Comparable<Animal>{
     private List<Animal> children;
     private AnimalParameters parameters;
     private boolean isDeceased;
-
     private int plantsEaten;
 
     // Creating Animal
