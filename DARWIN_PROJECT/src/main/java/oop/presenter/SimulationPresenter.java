@@ -3,6 +3,7 @@ package oop.presenter;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
@@ -24,33 +25,58 @@ public class SimulationPresenter implements MapChangeListener {
     private Boundary boundary;
     private int height;
     private int width;
+    private Simulation simulation;
 
     @FXML
     private GridPane mapGrid;
     @FXML
     public HBox animalColors;
+    @FXML
+    public Label animalNumStats;
+    @FXML
+    public Label plantsNumStats;
+    @FXML
+    public Label freeFieldsStats;
+    @FXML
+    public Label averageEnergyStats;
+    @FXML
+    public Label popularGenomeStats;
+    @FXML
+    public Label averageLifeStats;
+    @FXML
+    public Label averageChildrenNumStats;
 
 
+    //settery
     public void setWorldmap(WorldMap worldmap) {
         this.worldmap = (AbstractWorldMap) worldmap;
     }
 
+    public void setParameters(WorldParameters worldParameters, AnimalParameters animalParameters) {
+        this.animalParameters = animalParameters;
+        this.worldParameters = worldParameters;
+    }
+
+    // legend
+
+    public void drawColorBox(){
+        for (double i=0; i <= animalParameters.getAnimalStartEnergy(); i+= (double) animalParameters.getAnimalStartEnergy() /20) {
+            Rectangle colorRect = new Rectangle(10, 10);
+            colorRect.setFill( new Color((double)i / (double) animalParameters.getAnimalStartEnergy(),0.5, 0.5, 0.6));
+            animalColors.getChildren().add(colorRect);
+        }
+    }
+
+    // Drawing map
     private Vector2d vectorOnGrid(Vector2d vector2d){
         int y = this.height -1 - vector2d.getY() + boundary.lower_left().getY();
         int x = vector2d.getX()  - boundary.lower_left().getX();
         return new Vector2d(x,y);
     }
 
-    public void drawColorBox(){
-        for (double i=0; i <= animalParameters.getAnimalStartEnergy(); i+= (double) animalParameters.getAnimalStartEnergy() /20) {
-            Rectangle colorRect = new Rectangle(10, 10);
-            colorRect.setFill( new Color((double) i / (double) animalParameters.getAnimalStartEnergy(),0.3, 0.3, 0.5));
-            animalColors.getChildren().add(colorRect);
-        }
-    }
     public void drawMap(){
         this.clearGrid();
-
+        this.drawStat();
         this.boundary = worldmap.getCurrentBounds();
         this.height = worldmap.getHeight();
         this.width = worldmap.getWidth();
@@ -60,10 +86,10 @@ public class SimulationPresenter implements MapChangeListener {
         mapGrid.getColumnConstraints().add(new ColumnConstraints(CELL_WIDTH));
         mapGrid.getRowConstraints().add(new RowConstraints(CELL_HEIGHT));
 
-        for(int i = 1; i <= this.width; i++){
+        for(int i = 1; i < this.width; i++){
             mapGrid.getColumnConstraints().add(new ColumnConstraints(CELL_WIDTH));
         }
-        for(int j = 1; j <= this.height; j++){
+        for(int j = 1; j < this.height; j++){
             mapGrid.getRowConstraints().add(new RowConstraints(CELL_HEIGHT));
         }
         Map<Vector2d, MapElement> elements = worldmap.getElements();
@@ -87,7 +113,7 @@ public class SimulationPresenter implements MapChangeListener {
 
     public Color getColor(MapElement element){
         if(element instanceof Animal){
-            return(new Color((double) ((Animal) element).getEnergyLevel() /animalParameters.getAnimalStartEnergy(), 0.3, 0.3,0.5));
+            return(new Color((double) (double)((Animal) element).getEnergyLevel() /animalParameters.getAnimalStartEnergy(), 0.5, 0.5,0.6));
         } else if (element instanceof Plant){
             return(new Color(0.2, 1, 0.3, 0.5));
         } else{
@@ -95,38 +121,42 @@ public class SimulationPresenter implements MapChangeListener {
         }
     }
 
-
-
     @Override
     public void mapChanged(WorldMap worldmap, String message) {
-        this.setWorldmap(worldmap);
+        setWorldmap(worldmap);
         Platform.runLater(this::drawMap);
     }
 
+    //statistitcs
+    public void drawStat(){
+        this.animalNumStats.setText("");
+        this.averageEnergyStats.setText("");
+        this.averageLifeStats.setText("");
+        this.plantsNumStats.setText("");
+        this.freeFieldsStats.setText("");
+        this.popularGenomeStats.setText("");
+        this.averageChildrenNumStats.setText("");
+    }
+
+    //button events
     public void onSimulationStartClicked(){
         try{
             Simulation simulation = new Simulation(worldmap, animalParameters, worldParameters);
-            drawColorBox();
-            simulation.run();
+            this.simulation = simulation;
             SimulationEngine engine = new SimulationEngine(List.of(simulation));
-//            List<Vector2d> positions = List.of(new Vector2d(1,1), new Vector2d(5,5));
-//            Simulation simulation = new Simulation();
-//            SimulationEngine engine = new SimulationEngine(List.of(simulation));
-            engine.runAsyncInThreadPool();
+            engine.runAsync();
         } catch(IllegalArgumentException ignored){
             System.out.println(ignored.getMessage());
             System.exit(0);
         }
-
-
     }
 
-    public void setParameters(WorldParameters worldParameters, AnimalParameters animalParameters) {
-        this.animalParameters = animalParameters;
-        this.worldParameters = worldParameters;
+
+
+    public void resumeSimulation(ActionEvent actionEvent) {
     }
 
-    public void resumeSimnulation(ActionEvent actionEvent) {
-
+    public void stopSimulation(ActionEvent actionEvent) {
+        this.simulation.pause();
     }
 }

@@ -9,12 +9,14 @@ public class Simulation implements Runnable{
     public WorldMap map;
     public AnimalParameters animalParameters;
     public boolean run;
+    public int day;
 
 
     public Simulation(AbstractWorldMap map, AnimalParameters animalParameters, WorldParameters worldParameters){
         this.animalParameters = animalParameters;
         this.map = map;
         this.run = true;
+        this.day = 0;
 
         RandomAnimalsPositionGenerator randomPositionGenerator = new RandomAnimalsPositionGenerator(worldParameters.getMapWidth(), worldParameters.getMapHeight(), worldParameters.getStartAnimalNumber());
         Iterator<Vector2d> positionsIterator = randomPositionGenerator.iterator();
@@ -28,9 +30,14 @@ public class Simulation implements Runnable{
 
     @Override
     public void run() {
-        while(this.run){
-            map.dayRoutine();
+        while(run){
+            map.dayRoutine(this.day);
+            this.day += 1;
         }
+    }
+
+    public void pause(){
+        this.run=false;
     }
 
 }

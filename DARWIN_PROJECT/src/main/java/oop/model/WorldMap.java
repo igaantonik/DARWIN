@@ -9,7 +9,7 @@ public interface WorldMap extends MoveValidator {
     // listeners
     void addObserver(MapChangeListener observer);
 
-    void dayRoutine();
+    void dayRoutine(int day);
     //Daily events Plant - DO ZROBIENIA
     void dailyPlantGrow();
 

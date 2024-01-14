@@ -7,6 +7,8 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.paint.Color?>
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             minHeight="550.0" minWidth="850.0"
@@ -15,9 +17,54 @@
     </top>
     <left>
         <VBox spacing="10">
-            <Label text="STATYSTYKI"/>
+            <Label text="LEGENDA"/>
+            <HBox>
+                <Label text="Roślinki "/>
+                <Circle radius="10">
+                    <fill>
+                        <Color red ="0.2"  green="1" blue="0.3" opacity="0.5"/>
+                    </fill>
+                </Circle>
+            </HBox>
+            <HBox>
+                <Label text="Zbiorniki "/>
+                <Circle radius="10">
+                    <fill>
+                        <Color green="0.2" blue="1" opacity="0.6"/>
+                    </fill>
+                </Circle>
+            </HBox>
             <Label text="Energia zwierzaków" />
             <HBox fx:id="animalColors" />
+            <Label text="STATYSTYKI"/>
+            <HBox>
+                <Label text="Liczba zwierząt"/>
+                <Label fx:id="animalNumStats"/>
+            </HBox>
+            <HBox>
+                <Label text="Liczba roslin"/>
+                <Label fx:id="plantsNumStats"/>
+            </HBox>
+            <HBox>
+                <Label text="Wolne pola"/>
+                <Label fx:id="freeFieldsStats"/>
+            </HBox>
+            <HBox>
+                <Label text="Najpopularnijszy genom"/>
+                <Label fx:id="popularGenomeStats"/>
+            </HBox>
+            <HBox>
+                <Label text="Średnia energia zwierząt"/>
+                <Label fx:id="averageEnergyStats"/>
+            </HBox>
+            <HBox>
+                <Label text="średnia długość życia"/>
+                <Label fx:id="averageLifeStats"/>
+            </HBox>
+            <HBox>
+                <Label text="średnia ilość dzieci"/>
+                <Label fx:id="averageChildrenNumStats"/>
+            </HBox>
         </VBox>
     </left>
     <center>
@@ -25,8 +72,9 @@
     </center>
     <bottom>
         <HBox>
-            <Button text="Nowa Symulacja" onAction="#onSimulationStartClicked"/>
-            <Button text="Start" onAction="#resumeSimnulation"/>
+            <Button text="Rozpocznij symulacje" onAction="#onSimulationStartClicked"/>
+            <Button text="Start" onAction="#resumeSimulation"/>
+            <Button text="Stop" onAction="#stopSimulation"/>
         </HBox>
     </bottom>
 </BorderPane>

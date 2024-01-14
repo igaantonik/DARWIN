@@ -33,7 +33,7 @@ public abstract class AbstractWorldMap implements WorldMap {
     }
 
     // Day
-    public void dayRoutine(){
+    public void dayRoutine(int day){
         lookForDeadAnimals();
         moveAllAnimals();
         dinner();
@@ -41,7 +41,7 @@ public abstract class AbstractWorldMap implements WorldMap {
         dailyPlantGrow();
         mapChanged("");
         try {
-            Thread.sleep(200);
+            Thread.sleep(1000);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
@@ -109,6 +109,9 @@ public abstract class AbstractWorldMap implements WorldMap {
     @Override
     public void removeAnimal(Animal animal){
         Vector2d position = animal.getPosition();
+        if(!aliveAnimalsMap.containsKey(position)){
+            return;
+        }
         List<Animal> animals = aliveAnimalsMap.get(position);
         if(!animals.isEmpty()){
             animals.remove(animal);
