@@ -84,4 +84,18 @@ public class Statistics implements ChangeStats{
 
         return averageChildren/animalsAmount;
     }
+
+    public int getAnimalsNumber() {return animalsNumber;}
+
+    public Genom getMostGenom() {return mostGenom;}
+
+    public int getAverageChildren() {return averageChildren;}
+
+    public int getAverageEnergy() {return averageEnergy;}
+
+    public int getAverageLifeTime() {return averageLifeTime;}
+
+    public int getFreeFields() {return freeFields;}
+
+    public int getPlantsNumber() {return plantsNumber;}
 }
