@@ -9,6 +9,8 @@ public interface WorldMap extends MoveValidator {
     // listeners
     void addObserver(MapChangeListener observer);
 
+    void mapChanged(String message);
+
     void dayRoutine(int day);
     //Daily events Plant - DO ZROBIENIA
     void dailyPlantGrow();
@@ -50,6 +52,15 @@ public interface WorldMap extends MoveValidator {
     Map<Vector2d, MapElement> getElements();
 
     UUID getId();
+    List<Animal> getAllAnimals();
+    Map<Vector2d, List<Animal>> getAliveAnimals();
+    List<Animal> getDeceasedAnimals();
+    Map<Vector2d, Plant> getAllPlants();
+
+    boolean waterAt(Vector2d position);
+    int getHeight();
+    int getWidth();
 
     Boundary getCurrentBounds();
+
 }

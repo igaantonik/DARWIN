@@ -40,4 +40,9 @@ public class Simulation implements Runnable{
         this.run=false;
     }
 
+
+
+    public WorldMap getMap() {
+        return this.map;
+    }
 }

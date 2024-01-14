@@ -26,7 +26,8 @@ public abstract class AbstractWorldMap implements WorldMap {
             listeners.remove(i);
         }
     }
-    private void mapChanged(String message) {
+    @Override
+    public void mapChanged(String message) {
         for (MapChangeListener observer : listeners) {
             observer.mapChanged(this, message);
         }
@@ -186,7 +187,6 @@ public abstract class AbstractWorldMap implements WorldMap {
         }
     }
 
-    //posortowane rosnąco mozna uzyc i przy umieraniu zwierzakow jak i przy reprodukcji i zjadaniu roslin
 
     @Override
     public void sortAliveAnimalsInVector(Vector2d position){
@@ -196,9 +196,6 @@ public abstract class AbstractWorldMap implements WorldMap {
             aliveAnimalsMap.replace(position, animals);
         }
     }
-
-
-    // nadpisanie funkcji isoccupied dla flowsandebbs
 
 
     // Looking for elements in vector
@@ -249,10 +246,22 @@ public abstract class AbstractWorldMap implements WorldMap {
         return uuid;
     }
 
+
+    public boolean waterAt(Vector2d position){return false;}
+
+    public List<Animal> getAllAnimals(){return this.livingAnimals;}
+  
+    public Map<Vector2d, List<Animal>> getAliveAnimals(){return this.aliveAnimalsMap;}
+  
+    public List<Animal> getDeceasedAnimals(){return deceased_animals;}
+  
+    public Map<Vector2d, Plant> getAllPlants(){return plants;}
+
     @Override
     public Boundary getCurrentBounds() {
         return new Boundary(new Vector2d(0,0), new Vector2d(this.width, this.height));
     }
+
 
     public int getHeight() {
         return height;

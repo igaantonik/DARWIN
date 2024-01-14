@@ -96,7 +96,6 @@ public class SimulationPresenter implements MapChangeListener {
         for(Vector2d vector: elements.keySet()){
             Vector2d gridVector = vectorOnGrid(vector);
             mapGrid.add(getElement(elements.get(vector)), gridVector.getX(), gridVector.getY());
-        }
 
         }
     private void clearGrid() {
@@ -158,5 +157,8 @@ public class SimulationPresenter implements MapChangeListener {
 
     public void stopSimulation(ActionEvent actionEvent) {
         this.simulation.pause();
+    }
+
+    public void stopSimulation(ActionEvent actionEvent) {
     }
 }
