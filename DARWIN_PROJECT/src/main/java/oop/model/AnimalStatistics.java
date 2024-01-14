@@ -1,6 +1,6 @@
 package oop.model;
 
-public class AnimalStatistics implements ChangeStats{
+public class  AnimalStatistics implements ChangeStats{
     private Animal animal;
     private Genom genom;
     private int activeGenomPart;
@@ -28,6 +28,5 @@ public class AnimalStatistics implements ChangeStats{
         if(animal.isDeceased()){
             this.deathDate = animal.getAge() ;
         }
-
     }
 }
