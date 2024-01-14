@@ -75,12 +75,6 @@ public class FlowsAndEbbs extends AbstractWorldMap implements WorldMap{
         }
     }
 
-    public void changeDirection(){
-        for(WaterBasin basin: basins){
-            basin.changeFlowDirection(basin.getFlowDirection().next().next());
-        }
-    }
-
     public void allBasinsMove(){
         for(WaterBasin basin: basins){
             basin.changeBoundaries();
@@ -101,11 +95,36 @@ public class FlowsAndEbbs extends AbstractWorldMap implements WorldMap{
 
     @Override
     public boolean canMoveTo(Vector2d position) {
-        return false;
+        return position.getY() >= 0 && position.getY() <= height - 1;
     }
+
     @Override
     public boolean isOccupied(Vector2d position) {
         return isPlant(position) || isAnimal(position) || waterAt(position);
+    }
+
+    @Override
+    public Map<Vector2d,MapElement> getElements() {
+        Map<Vector2d,MapElement> result = new HashMap<>();
+        for (Vector2d key : aliveAnimalsMap.keySet()){
+            sortAliveAnimalsInVector(key);
+            result.put(key, aliveAnimalsMap.get(key).get(0));
+        }
+        for(Vector2d vector: this.plants.keySet()){
+            if(!result.containsKey(vector)) {
+                result.put(vector, plantAt(vector));
+            }
+        }
+        for (WaterBasin basin: basins){
+            for(int i = basin.getLowerLeft().getX(); i<= basin.getUpperRight().getX(); i++){
+                for(int j = basin.getLowerLeft().getY(); j<basin.getUpperRight().getY();j++){
+                    Water water = new Water(new Vector2d(i,j));
+                    result.put(new Vector2d(i,j),water);
+                }
+
+            }
+        }
+        return result;
     }
 
     @Override

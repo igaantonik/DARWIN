@@ -52,7 +52,7 @@ public abstract class AbstractWorldMap implements WorldMap {
     //Daily events Plant
 
     public void placePlants(int plantsAmount) {
-        RandomPlantPositionGenerator randomPositionGenerator = new RandomPlantPositionGenerator(width - 1, height - 1, plantsAmount, plants);
+        RandomPlantPositionGenerator randomPositionGenerator = new RandomPlantPositionGenerator(width, height, plantsAmount, plants);
 
         for (Vector2d plantPosition : randomPositionGenerator) {
             placePlant(new Plant(plantPosition));

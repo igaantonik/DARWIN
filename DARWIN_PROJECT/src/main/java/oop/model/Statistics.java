@@ -87,6 +87,7 @@ public class Statistics implements ChangeStats{
         return averageChildren/animalsAmount;
     }
 
+
     public Genom checkMostPopularGenom(){
         HashMap<AbstractGenom, Integer> genoms = new HashMap<>();
         for(Animal animal:this.map.getAllAnimals()){
@@ -102,5 +103,19 @@ public class Statistics implements ChangeStats{
         }
         return this.mostGenom;
     }
+
+    public int getAnimalsNumber() {return animalsNumber;}
+
+    public Genom getMostGenom() {return mostGenom;}
+
+    public int getAverageChildren() {return averageChildren;}
+
+    public int getAverageEnergy() {return averageEnergy;}
+
+    public int getAverageLifeTime() {return averageLifeTime;}
+
+    public int getFreeFields() {return freeFields;}
+
+    public int getPlantsNumber() {return plantsNumber;}
 
 }
