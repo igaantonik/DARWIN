@@ -116,7 +116,7 @@ public class Statistics implements ChangeStats{
 
     public String getMostGenom() {
         return mostGenom.getGenes().stream().map(Gen::toString)
-                .collect(Collectors.joining(", "));
+                .collect(Collectors.joining(" "));
     }
 
     public String getAverageChildren() {return Integer.toString(this.averageChildren);}

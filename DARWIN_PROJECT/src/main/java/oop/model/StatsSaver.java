@@ -28,8 +28,9 @@ public class StatsSaver implements  MapChangeListener{
         setStatistics();
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(this.csvFile, true))) {
             StringBuilder rowBuilder = new StringBuilder();
-            for(String value: this.statistics.getAllStats()){
+            for(String value: this.statistics.getAllStats()) {
                 rowBuilder.append(value);
+                rowBuilder.append(",");
             }
             writer.write(rowBuilder.toString());
             writer.newLine();
