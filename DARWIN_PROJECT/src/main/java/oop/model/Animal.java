@@ -4,7 +4,6 @@ package oop.model;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import java.util.Vector;
 
 public class Animal implements MapElement, Comparable<Animal>{
     private int age;

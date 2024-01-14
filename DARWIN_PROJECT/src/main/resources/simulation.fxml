@@ -36,35 +36,26 @@
             </HBox>
             <Label text="Energia zwierzaków" />
             <HBox fx:id="animalColors" />
+
             <Label text="STATYSTYKI"/>
-            <HBox>
-                <Label text="Liczba zwierząt"/>
-                <Label fx:id="animalNumStats"/>
-            </HBox>
-            <HBox>
-                <Label text="Liczba roslin"/>
-                <Label fx:id="plantsNumStats"/>
-            </HBox>
-            <HBox>
-                <Label text="Wolne pola"/>
-                <Label fx:id="freeFieldsStats"/>
-            </HBox>
-            <HBox>
-                <Label text="Najpopularnijszy genom"/>
-                <Label fx:id="popularGenomeStats"/>
-            </HBox>
-            <HBox>
-                <Label text="Średnia energia zwierząt"/>
-                <Label fx:id="averageEnergyStats"/>
-            </HBox>
-            <HBox>
-                <Label text="średnia długość życia"/>
-                <Label fx:id="averageLifeStats"/>
-            </HBox>
-            <HBox>
-                <Label text="średnia ilość dzieci"/>
-                <Label fx:id="averageChildrenNumStats"/>
-            </HBox>
+            <GridPane>
+                <Label text="Liczba zwierząt" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                <Label fx:id="animalNumStats" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+                <Label text="Liczba roślin" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                <Label fx:id="plantsNumStats" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+                <Label text="Wolne pola" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+                <Label fx:id="freeFieldsStats" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+                <Label text="Najpopularniejszy genom" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+                <Label fx:id="popularGenomeStats" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+                <Label text="Średnia energia zwierząt" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
+                <Label fx:id="averageEnergyStats" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
+                <Label text="Średnia długość życia" GridPane.rowIndex="5" GridPane.columnIndex="0"/>
+                <Label fx:id="averageLifeStats" GridPane.rowIndex="5" GridPane.columnIndex="1"/>
+                <Label text="Średnia ilość dzieci" GridPane.rowIndex="6" GridPane.columnIndex="0"/>
+                <Label fx:id="averageChildrenNumStats" GridPane.rowIndex="6" GridPane.columnIndex="1"/>
+            </GridPane>
+
+
         </VBox>
     </left>
     <center>
@@ -73,7 +64,7 @@
     <bottom>
         <HBox>
             <Button text="Rozpocznij symulacje" onAction="#onSimulationStartClicked"/>
-            <Button text="Start" onAction="#resumeSimulation"/>
+            <Button text="Resume" onAction="#resumeSimulation"/>
             <Button text="Stop" onAction="#stopSimulation"/>
         </HBox>
     </bottom>

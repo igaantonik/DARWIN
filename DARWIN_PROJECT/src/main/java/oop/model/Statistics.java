@@ -2,10 +2,13 @@ package oop.model;
 
 import oop.Simulation;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class Statistics implements ChangeStats{
+    private int fields;
     private Simulation simulation;
     private int animalsNumber;
     private int plantsNumber;
@@ -19,30 +22,30 @@ public class Statistics implements ChangeStats{
     public Statistics(Simulation simulation){
         this.simulation = simulation;
         this.map = simulation.getMap();
+        this.fields = map.getHeight() * map.getWidth();
+    }
+    @Override
+    public void statsChanged() { // TO DO
         this.animalsNumber = map.getAllAnimals().size();
         this.plantsNumber = map.getAllPlants().size();
         this.freeFields = countFreeFields();
         this.averageEnergy = checkAverageEnergy();
         this.averageLifeTime = checkAverageLifetime();
         this.averageChildren = checkAverageChildren();
-
-    }
-    @Override
-    public void statsChanged() { // TO DO
-
+        this.mostGenom = checkMostPopularGenom();
     }
 
     public int countFreeFields(){
-        int freeFields = map.getHeight() * map.getWidth();
+        int fieldsfree = this.fields;
         Map<Vector2d, List<Animal>> aliveAnimals =  map.getAliveAnimals();
         Map<Vector2d, Plant> plants = map.getAllPlants();
         for(Vector2d position: aliveAnimals.keySet()) {
-            freeFields -= 1;
+            fieldsfree -= 1;
         }
         for(Vector2d position: plants.keySet()) {
-            freeFields -= 1;
+            fieldsfree -= 1;
         }
-        return freeFields;
+        return fieldsfree;
     }
 
     public int checkAverageEnergy() {
@@ -60,20 +63,25 @@ public class Statistics implements ChangeStats{
     }
 
     public int checkAverageLifetime(){
-        int averageLifetime = 0;
+        int averagelifetime = 0;
         List<Animal> deceasedAnimals = map.getDeceasedAnimals();
         int animalsAmount = deceasedAnimals.size();
         for(Animal animal : deceasedAnimals){
-            averageLifetime += animal.getAge();
+            averagelifetime += animal.getAge();
         }
-
-        return averageLifetime/animalsAmount;
+        if(deceasedAnimals.isEmpty()){
+            return 0;
+        }
+        return averagelifetime/animalsAmount;
     }
 
     public int checkAverageChildren(){
         int averageChildren = 0;
         int animalsAmount = 0;
         Map<Vector2d, List<Animal>> aliveAnimals = map.getAliveAnimals();
+        if(aliveAnimals.isEmpty()){
+            return 0;
+        }
         for (Vector2d position : aliveAnimals.keySet()) {
             List<Animal> animals = aliveAnimals.get(position);
             for (Animal animal : animals) {
@@ -81,21 +89,43 @@ public class Statistics implements ChangeStats{
                 animalsAmount += 1;
             }
         }
-
         return averageChildren/animalsAmount;
     }
 
-    public int getAnimalsNumber() {return animalsNumber;}
 
-    public Genom getMostGenom() {return mostGenom;}
+    public Genom checkMostPopularGenom(){
+        HashMap<Genom, Integer> genoms = new HashMap<>();
+        for(Animal animal:this.map.getAllAnimals()){
+            if (genoms.containsKey(animal.getGenom())){
+                genoms.replace(animal.getGenom(), genoms.get(animal.getGenom())+1);
+            } else{
+                genoms.put(animal.getGenom(), 1);
+                this.mostGenom = animal.getGenom();
+            }
+        }
+        for(Genom genom: genoms.keySet()){
+            if(genoms.get(genom) > genoms.get(this.mostGenom)){
+                this.mostGenom = genom;
+            }
+        }
+        return this.mostGenom;
+    }
 
-    public int getAverageChildren() {return averageChildren;}
+    public String getAnimalsNumber() {return Integer.toString(this.animalsNumber);}
 
-    public int getAverageEnergy() {return averageEnergy;}
+    public String getMostGenom() {
+        return mostGenom.getGenes().stream().map(Gen::toString)
+                .collect(Collectors.joining(", "));
+    }
 
-    public int getAverageLifeTime() {return averageLifeTime;}
+    public String getAverageChildren() {return Integer.toString(this.averageChildren);}
 
-    public int getFreeFields() {return freeFields;}
+    public String getAverageEnergy() {return Integer.toString(this.averageEnergy);}
 
-    public int getPlantsNumber() {return plantsNumber;}
+    public String getAverageLifeTime() {return Integer.toString(this.averageLifeTime);}
+
+    public String getFreeFields() {return Integer.toString(this.freeFields);}
+
+    public String getPlantsNumber() {return Integer.toString(this.plantsNumber);}
+
 }
