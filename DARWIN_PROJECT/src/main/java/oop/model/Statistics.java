@@ -2,6 +2,7 @@ package oop.model;
 
 import oop.Simulation;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -127,5 +128,17 @@ public class Statistics implements ChangeStats{
     public String getFreeFields() {return Integer.toString(this.freeFields);}
 
     public String getPlantsNumber() {return Integer.toString(this.plantsNumber);}
+
+    public List<String> getAllStats(){
+        List<String> allStatsDay = new ArrayList<>();
+        allStatsDay.add(getAnimalsNumber());
+        allStatsDay.add(getAverageLifeTime());
+        allStatsDay.add(getFreeFields());
+        allStatsDay.add(getPlantsNumber());
+        allStatsDay.add(getAverageEnergy());
+        allStatsDay.add(getAverageChildren());
+        allStatsDay.add(getMostGenom());
+        return allStatsDay;
+    }
 
 }

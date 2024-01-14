@@ -2,6 +2,7 @@ package oop.presenter;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Spinner;
 import javafx.scene.layout.BorderPane;
@@ -15,6 +16,7 @@ import static com.sun.javafx.application.ParametersImpl.getParameters;
 
 
 public class ParametersPresenter{
+    public CheckBox fileSaving;
     private int CELL_WIDTH = 40;
     private int CELL_HEIGHT = 40;
 
