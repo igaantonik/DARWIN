@@ -2,6 +2,7 @@ package oop.model;
 
 import oop.Simulation;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -9,7 +10,7 @@ import java.util.stream.Collectors;
 
 public class Statistics implements ChangeStats{
     private int fields;
-    private Simulation simulation;
+//    private Simulation simulation;
     private int animalsNumber;
     private int plantsNumber;
     private int freeFields;
@@ -20,7 +21,7 @@ public class Statistics implements ChangeStats{
     private WorldMap map;
 
     public Statistics(Simulation simulation){
-        this.simulation = simulation;
+//        this.simulation = simulation;
         this.map = simulation.getMap();
         this.fields = map.getHeight() * map.getWidth();
     }
@@ -115,7 +116,7 @@ public class Statistics implements ChangeStats{
 
     public String getMostGenom() {
         return mostGenom.getGenes().stream().map(Gen::toString)
-                .collect(Collectors.joining(", "));
+                .collect(Collectors.joining(" "));
     }
 
     public String getAverageChildren() {return Integer.toString(this.averageChildren);}
@@ -127,5 +128,17 @@ public class Statistics implements ChangeStats{
     public String getFreeFields() {return Integer.toString(this.freeFields);}
 
     public String getPlantsNumber() {return Integer.toString(this.plantsNumber);}
+
+    public List<String> getAllStats(){
+        List<String> allStatsDay = new ArrayList<>();
+        allStatsDay.add(getAnimalsNumber());
+        allStatsDay.add(getAverageLifeTime());
+        allStatsDay.add(getFreeFields());
+        allStatsDay.add(getPlantsNumber());
+        allStatsDay.add(getAverageEnergy());
+        allStatsDay.add(getAverageChildren());
+        allStatsDay.add(getMostGenom());
+        return allStatsDay;
+    }
 
 }
