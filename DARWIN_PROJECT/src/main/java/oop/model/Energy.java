@@ -13,7 +13,7 @@ public class Energy {
 
     // Getting atributes
     public int getEnergyLevel() {
-        return energyLevel;
+        return this.energyLevel;
     }
 
 
@@ -26,7 +26,7 @@ public class Energy {
     }
 
     public boolean canLive(){
-        if(this.energyLevel == 0){
+        if(this.energyLevel <= 0){
             return false;
         }
         return true;

@@ -52,12 +52,15 @@ public interface WorldMap extends MoveValidator {
     Map<Vector2d, MapElement> getElements();
 
     UUID getId();
-     List<Animal> getAllAnimals();
-     Map<Vector2d, List<Animal>> getAliveAnimals();
-     List<Animal> getDeceasedAnimals();
+    List<Animal> getAllAnimals();
+    Map<Vector2d, List<Animal>> getAliveAnimals();
+    List<Animal> getDeceasedAnimals();
     Map<Vector2d, Plant> getAllPlants();
 
     boolean waterAt(Vector2d position);
     int getHeight();
     int getWidth();
+
+    Boundary getCurrentBounds();
+
 }
