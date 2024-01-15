@@ -83,15 +83,15 @@
 
             <Label text="Długość genomu" GridPane.columnIndex="1" GridPane.rowIndex="9"/>
             <Spinner fx:id="genomLengthSpinner" GridPane.columnIndex="1" GridPane.rowIndex="10"
-                     min="10" max="50" initialValue="5"/>
+                     min="3" max="50" initialValue="5"/>
 
             <Label text="Minimalna ilość mutacji" GridPane.columnIndex="1" GridPane.rowIndex="11"/>
             <Spinner fx:id="minMutationSpinner" GridPane.columnIndex="1" GridPane.rowIndex="12"
-                     min="5" max="20" initialValue="10"/>
+                     min="0" max="20" initialValue="3"/>
 
             <Label text="Maksymalna ilość mutacji" GridPane.columnIndex="1" GridPane.rowIndex="13"/>
             <Spinner fx:id="maxMutationSpinner" GridPane.columnIndex="1" GridPane.rowIndex="14"
-                     min="5" max="20" initialValue="10"/>
+                     min="0" max="20" initialValue="3"/>
 
             <Label text="Wariant zachowania" GridPane.columnIndex="1" GridPane.rowIndex="15"/>
             <ComboBox fx:id="genomVariantBox" GridPane.columnIndex="1" GridPane.rowIndex="16">
