@@ -101,21 +101,26 @@ public class Statistics implements ChangeStats{
                 genoms.replace(animal.getGenom(), genoms.get(animal.getGenom())+1);
             } else{
                 genoms.put(animal.getGenom(), 1);
-                this.mostGenom = animal.getGenom();
             }
         }
+        int val = -1;
         for(Genom genom: genoms.keySet()){
-            if(genoms.get(genom) > genoms.get(this.mostGenom)){
+            if(val == -1){
                 this.mostGenom = genom;
+                val = genoms.get(genom);
+            } else if(genoms.get(genom) > val){
+                this.mostGenom = genom;
+                val = genoms.get(genom);
             }
         }
         return this.mostGenom;
     }
 
+
     public List<Vector2d> animalsWithMostPopularGenom(){
         List<Vector2d> placesToHiglight = new ArrayList<>();
         for(Animal animal: this.map.getAllAnimals()){
-            if(animal.getGenom() == this.mostGenom){
+            if(animal.getGenom().equals(this.mostGenom)){
                 placesToHiglight.add(animal.getPosition());
             }
         }

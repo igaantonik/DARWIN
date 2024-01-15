@@ -165,7 +165,7 @@ public class SimulationPresenter implements MapChangeListener {
         if(element instanceof Animal){
             return(new Color((double) (double)((Animal) element).getEnergyLevel() /animalParameters.getAnimalStartEnergy(), 0, 0,0.6));
         } else if (element instanceof Plant){
-            return(new Color(0.2, 1, 0.3, 0.5));
+            return(new Color(0.5, 1, 0.5, 1));
         } else{
             return(new Color(0, 0.2, 1, 0.6));
         }
@@ -243,7 +243,7 @@ public class SimulationPresenter implements MapChangeListener {
     public void highlightAnimals(ActionEvent actionEvent) {
         for(Vector2d vector: this.stats.animalsWithMostPopularGenom()){
             Vector2d gridVector = vectorOnGrid(vector);
-            mapGrid.add(new  Circle(this.cellSize/2, Color.BLUEVIOLET), gridVector.getX(), gridVector.getY());
+            mapGrid.add(new  Circle(this.cellSize/2, new Color(1,0,1,1)), gridVector.getX(), gridVector.getY());
         }
 
     }
@@ -251,7 +251,7 @@ public class SimulationPresenter implements MapChangeListener {
     public void highlightPlantsPreferences(ActionEvent actionEvent) {
         for(Vector2d vector: this.stats.mostPreferedByPlants()){
             Vector2d gridVector = vectorOnGrid(vector);
-            mapGrid.add(new  Circle(20, Color.DARKGREEN), gridVector.getX(), gridVector.getY());
+            mapGrid.add(new  Circle(this.cellSize/2, Color.DARKGREEN), gridVector.getX(), gridVector.getY());
         }
 
     }
