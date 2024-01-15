@@ -99,6 +99,7 @@ public class ParametersPresenter{
             loader.setLocation(getClass().getClassLoader().getResource("simulation.fxml"));
             BorderPane viewRoot = loader.load();
             SimulationPresenter presenter = loader.getController();
+            presenter.setInicialValues();
             WorldApp.configureSecondStage(secondStage, viewRoot);
             secondStage.show();
 

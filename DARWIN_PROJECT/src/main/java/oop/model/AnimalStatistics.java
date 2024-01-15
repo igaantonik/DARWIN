@@ -1,6 +1,8 @@
 package oop.model;
 
-public class AnimalStatistics implements ChangeStats{
+import java.util.stream.Collectors;
+
+public class  AnimalStatistics implements ChangeStats{
     private Animal animal;
     private Genom genom;
     private int activeGenomPart;
@@ -28,6 +30,38 @@ public class AnimalStatistics implements ChangeStats{
         if(animal.isDeceased()){
             this.deathDate = animal.getAge() ;
         }
+    }
 
+    public String getGenom() {
+        return this.genom.getGenes().stream().map(Gen::toString)
+                .collect(Collectors.joining(" "));
+    }
+
+    public String getEnergyLevel() {
+        return Integer.toString(this.energyLevel);
+    }
+
+    public String getAge() {
+        return Integer.toString(age);
+    }
+
+    public String getKidsNumber() {
+        return Integer.toString(kidsNumber);
+    }
+
+    public String getActiveGenomPart() {
+        return Integer.toString(activeGenomPart);
+    }
+
+    public String getDeathDate() {
+        return Integer.toString(deathDate);
+    }
+
+    public String getOffspringNumber() {
+        return Integer.toString(offspringNumber);
+    }
+
+    public String getPlantsEaten() {
+        return Integer.toString(plantsEaten);
     }
 }

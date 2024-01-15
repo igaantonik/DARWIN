@@ -48,7 +48,7 @@ public class AnimalParametersBuilder {
 
     public AnimalParametersBuilder setGenomLength(int genomLength) {
         if(genomLength <= 0){
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("Długość Genomu nie może być ujemna");
         }
         this.genomLength = genomLength;
         return this;
@@ -63,16 +63,16 @@ public class AnimalParametersBuilder {
     }
 
     public AnimalParametersBuilder setMinMutation(int minMutation) {
-        if(minMutation < 0){
-            throw new IllegalArgumentException();
+        if(minMutation < 0 || minMutation > this.genomLength){
+            throw new IllegalArgumentException("Zła minimalna ilość mutacji");
         }
         this.minMutation = minMutation;
         return this;
     }
 
     public AnimalParametersBuilder setMaxMutation(int maxMutation) {
-        if(maxMutation < 0 || maxMutation < minMutation || maxMutation > genomLength){
-            throw new IllegalArgumentException();
+        if(maxMutation < 0 || maxMutation < minMutation || maxMutation > this.genomLength){
+            throw new IllegalArgumentException("Zła maksymalna ilość mutacji");
         }
         this.maxMutation = maxMutation;
         return this;

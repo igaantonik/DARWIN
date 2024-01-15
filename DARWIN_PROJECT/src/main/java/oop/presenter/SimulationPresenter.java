@@ -1,8 +1,10 @@
 package oop.presenter;
 
 import javafx.application.Platform;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
@@ -13,21 +15,32 @@ import oop.model.*;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Vector;
 
 
 public class SimulationPresenter implements MapChangeListener {
 
+    public Label followedanimalEnergy;
+    public Label followedanimalEaten;
+    public Label followedanimalChildren;
+    public Label followedanimalOffspring;
+    public Label followedanimalDays;
+    public Label followedAnimalDeath;
+    public Label followedGenom;
+    public Label followedanimalGen;
     private AbstractWorldMap worldmap;
     private WorldParameters worldParameters;
     private AnimalParameters animalParameters;
-    private int CELL_WIDTH = 40;
-    private int CELL_HEIGHT = 40;
+    private int CELL_WIDTH = 400;
+    private int CELL_HEIGHT = 400;
     private Boundary boundary;
     private int height;
     private int width;
     private Simulation simulation;
     private Statistics stats;
+    private boolean followingAnimal;
+    private Animal animalFollowed;
+    private AnimalStatistics animalStatistics;
+    private int cellSize;
 
 
     @FXML
@@ -48,9 +61,27 @@ public class SimulationPresenter implements MapChangeListener {
     public Label averageLifeStats;
     @FXML
     public Label averageChildrenNumStats;
+    @FXML
+    public GridPane animalStats;
+    @FXML
+    public Label followeLabel;
 
 
     //settery
+    public void setInicialValues(){
+        this.followingAnimal = false;
+        this.setFollowingStats(false);
+    }
+
+    public void setFollowingStats(boolean val){
+        this.followeLabel.setVisible(val);
+        ObservableList<Node> children = animalStats.getChildren();
+        for (Node node : children) {
+            if (node instanceof Label) {
+                ((Label) node).setVisible(val);
+            }
+        }
+    }
     public void setWorldmap(WorldMap worldmap) {
         this.worldmap = (AbstractWorldMap) worldmap;
     }
@@ -83,28 +114,40 @@ public class SimulationPresenter implements MapChangeListener {
 
     public void drawMap() {
         this.clearGrid();
-        this.drawStat();
         this.boundary = worldmap.getCurrentBounds();
         this.height = worldmap.getHeight();
         this.width = worldmap.getWidth();
         mapGrid.minHeight(this.height);
         mapGrid.minWidth(this.width);
+        this.cellSize = this.calculateCellSize();
 
-        mapGrid.getColumnConstraints().add(new ColumnConstraints(CELL_WIDTH));
-        mapGrid.getRowConstraints().add(new RowConstraints(CELL_HEIGHT));
+
+        mapGrid.getColumnConstraints().add(new ColumnConstraints(this.cellSize));
+        mapGrid.getRowConstraints().add(new RowConstraints(this.cellSize));
 
         for (int i = 1; i < this.width; i++) {
-            mapGrid.getColumnConstraints().add(new ColumnConstraints(CELL_WIDTH));
+            mapGrid.getColumnConstraints().add(new ColumnConstraints(this.cellSize));
         }
         for (int j = 1; j < this.height; j++) {
-            mapGrid.getRowConstraints().add(new RowConstraints(CELL_HEIGHT));
+            mapGrid.getRowConstraints().add(new RowConstraints(this.cellSize));
         }
         Map<Vector2d, MapElement> elements = worldmap.getElements();
         for (Vector2d vector : elements.keySet()) {
             Vector2d gridVector = vectorOnGrid(vector);
             mapGrid.add(getElement(elements.get(vector)), gridVector.getX(), gridVector.getY());
-
+            if(elements.get(vector) instanceof Animal) {
+                Rectangle invisibleRect = new Rectangle(this.cellSize, this.cellSize, Color.TRANSPARENT);
+                mapGrid.add(invisibleRect, gridVector.getX(), gridVector.getY());
+                invisibleRect.setOnMouseClicked(event -> startToDisplayAnimalInfo((Animal) elements.get(vector)));
+            }
         }
+        this.drawStat();
+    }
+
+    private int calculateCellSize(){
+        int maxCellWidth = this.CELL_WIDTH / (this.width + 1);
+        int maxCellHeight = this.CELL_HEIGHT/ (this.height + 1);
+        return Math.min(maxCellWidth, maxCellHeight);
     }
     private void clearGrid() {
         mapGrid.getChildren().retainAll(mapGrid.getChildren().get(0));
@@ -114,7 +157,7 @@ public class SimulationPresenter implements MapChangeListener {
 
     public Circle getElement(MapElement element){
         Color newcolor = getColor(element);
-        Circle circle = new Circle(20, newcolor);
+        Circle circle = new Circle(this.cellSize/2, newcolor);
         return circle;
     }
 
@@ -134,6 +177,7 @@ public class SimulationPresenter implements MapChangeListener {
         Platform.runLater(this::drawMap);
     }
 
+
     //statistitcs
     public void drawStat(){
         stats.statsChanged();
@@ -144,9 +188,34 @@ public class SimulationPresenter implements MapChangeListener {
         this.freeFieldsStats.setText(stats.getFreeFields());
         this.popularGenomeStats.setText(stats.getMostGenom());
         this.averageChildrenNumStats.setText(stats.getAverageChildren());
+        if(followingAnimal){
+            displayAnimalStats();
+        }
+    }
+
+    public void displayAnimalStats(){
+        Vector2d gridVector = vectorOnGrid(this.animalFollowed.getPosition());
+        mapGrid.add(new  Circle(this.cellSize/2, Color.CYAN), gridVector.getX(), gridVector.getY());
+        this.animalStatistics.statsChanged();
+        this.followedanimalEnergy.setText(this.animalStatistics.getEnergyLevel());
+        this.followedanimalEaten.setText(this.animalStatistics.getPlantsEaten());
+        this.followedanimalChildren.setText(this.animalStatistics.getKidsNumber());
+        this.followedanimalOffspring.setText(this.animalStatistics.getOffspringNumber());
+        this.followedanimalDays.setText(this.animalStatistics.getAge());
+        this.followedAnimalDeath.setText(this.animalStatistics.getDeathDate());
+        this.followedGenom.setText(this.animalStatistics.getGenom());
+        this.followedanimalGen.setText(this.animalStatistics.getActiveGenomPart());
     }
 
     //button events
+
+    public void startToDisplayAnimalInfo(Animal animal){
+        this.followingAnimal = true;
+        this.animalFollowed = animal;
+        this.animalStatistics = new AnimalStatistics(animal);
+        this.setFollowingStats(true);
+    }
+
     public void onSimulationStartClicked(){
         try{
             Simulation simulation = new Simulation(worldmap, animalParameters, worldParameters);
@@ -168,12 +237,13 @@ public class SimulationPresenter implements MapChangeListener {
 
     public void stopSimulation(ActionEvent actionEvent) {
         this.simulation.pause();
+        this.setInicialValues();
     }
 
     public void highlightAnimals(ActionEvent actionEvent) {
         for(Vector2d vector: this.stats.animalsWithMostPopularGenom()){
             Vector2d gridVector = vectorOnGrid(vector);
-            mapGrid.add(new  Circle(20, Color.BLUEVIOLET), gridVector.getX(), gridVector.getY());
+            mapGrid.add(new  Circle(this.cellSize/2, Color.BLUEVIOLET), gridVector.getX(), gridVector.getY());
         }
 
     }
@@ -185,4 +255,5 @@ public class SimulationPresenter implements MapChangeListener {
         }
 
     }
+
 }
