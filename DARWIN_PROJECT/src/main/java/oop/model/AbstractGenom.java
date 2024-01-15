@@ -19,7 +19,7 @@ public class AbstractGenom implements Genom{
     }
 
     @Override
-    public boolean equal(AbstractGenom other) {
+    public boolean equals(AbstractGenom other) {
         if(this.genes.size() != other.getGenes().size()){
             return false;
         }

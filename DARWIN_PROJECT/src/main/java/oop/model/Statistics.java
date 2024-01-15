@@ -112,6 +112,7 @@ public class Statistics implements ChangeStats{
         return this.mostGenom;
     }
 
+
     public List<Vector2d> animalsWithMostPopularGenom(){
         List<Vector2d> placesToHiglight = new ArrayList<>();
         for(Animal animal: this.map.getAllAnimals()){

@@ -14,7 +14,7 @@ public interface Genom {
 
     List<Gen> getGenes();
 
-    boolean equal(AbstractGenom genom);
+    boolean equals(AbstractGenom genom);
 
     int getCurrentGen();
 }
