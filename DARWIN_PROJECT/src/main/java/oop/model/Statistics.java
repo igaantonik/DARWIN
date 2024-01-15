@@ -101,26 +101,44 @@ public class Statistics implements ChangeStats{
                 genoms.replace(animal.getGenom(), genoms.get(animal.getGenom())+1);
             } else{
                 genoms.put(animal.getGenom(), 1);
-                this.mostGenom = animal.getGenom();
             }
         }
+        int val = -1;
         for(Genom genom: genoms.keySet()){
-            if(genoms.get(genom) > genoms.get(this.mostGenom)){
+            if(val == -1){
                 this.mostGenom = genom;
+                val = genoms.get(genom);
+            } else if(genoms.get(genom) > val){
+                this.mostGenom = genom;
+                val = genoms.get(genom);
             }
         }
         return this.mostGenom;
     }
 
+
     public List<Vector2d> animalsWithMostPopularGenom(){
         List<Vector2d> placesToHiglight = new ArrayList<>();
         for(Animal animal: this.map.getAllAnimals()){
-            if(animal.getGenom() == this.mostGenom){
+            if(animal.getGenom().equals(this.mostGenom)){
                 placesToHiglight.add(animal.getPosition());
             }
         }
         return  placesToHiglight;
     }
+
+    public List<Vector2d> mostPreferedByPlants(){
+        List<Vector2d> placesToHiglight = new ArrayList<>();
+        int width = map.getWidth();
+        int height = map.getHeight();
+        for (int x = 0; x < width; x++) {
+            for (int y = (height*4)/10; y < (height*6)/10; y++) {
+                placesToHiglight.add(new Vector2d(x, y));
+            }
+        }
+        return  placesToHiglight;
+    }
+
     public String getAnimalsNumber() {return Integer.toString(this.animalsNumber);}
 
     public String getMostGenom() {

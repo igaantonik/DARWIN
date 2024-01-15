@@ -55,6 +55,9 @@
                 <HBox GridPane.rowIndex="8" GridPane.columnIndex="0">
                     <Button text="Zwierzaki z najpopularniejszym genomem" onAction="#highlightAnimals" />
                 </HBox>
+                <HBox GridPane.rowIndex="9" GridPane.columnIndex="0">
+                    <Button text="Pola preferowane przez rośliny" onAction="#highlightPlantsPreferences" />
+                </HBox>
             </GridPane>
             <Label text="ŚLEDZONY ZWIERZAK" fx:id="followeLabel"/>
             <GridPane fx:id="animalStats" vgap="10" layoutX="10" hgap="10">

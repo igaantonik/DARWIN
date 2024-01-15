@@ -23,23 +23,23 @@
             <Label text="Parametry świata" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
             <Label text="Wysokość mapy" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
             <Spinner fx:id="heightSpinner" GridPane.columnIndex="0" GridPane.rowIndex="2"
-                     min="5" max="20" initialValue="10"/>
+                     min="5" max="40" initialValue="40"/>
 
             <Label text="Szerokość mapy" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
             <Spinner fx:id="widthSpinner" GridPane.columnIndex="0" GridPane.rowIndex="4"
-                     min="5" max="20" initialValue="10"/>
+                     min="5" max="40" initialValue="40"/>
 
             <Label text="Liczba startowa zwierzaków" GridPane.columnIndex="0" GridPane.rowIndex="5"/>
             <Spinner fx:id="animalsNumSpinner" GridPane.columnIndex="0" GridPane.rowIndex="6"
-                     min="2" max="20" initialValue="5"/>
+                     min="2" max="500" initialValue="500"/>
 
             <Label text="Liczba startowa roślin" GridPane.columnIndex="0" GridPane.rowIndex="7"/>
             <Spinner fx:id="plantNumSpinner" GridPane.columnIndex="0" GridPane.rowIndex="8"
-                     min="2" max="20" initialValue="5"/>
+                     min="2" max="20" initialValue="20"/>
 
             <Label text="Ile roślinek rośnie w ciągu jednego dnia" GridPane.columnIndex="0" GridPane.rowIndex="9"/>
             <Spinner fx:id="dailyPlantsNumSpinner" GridPane.columnIndex="0" GridPane.rowIndex="10"
-                     min="2" max="10" initialValue="5"/>
+                     min="2" max="20" initialValue="20"/>
 
             <Label text="Wariant mapy" GridPane.columnIndex="0" GridPane.rowIndex="11"/>
             <ComboBox fx:id="mapVariantBox" GridPane.columnIndex="0" GridPane.rowIndex="12">
@@ -55,14 +55,9 @@
                 <CheckBox fx:id="fileSaving"/>
             </HBox>
 
-
             <Label fx:id="basinsLabel" text="Ile zbiornikow" GridPane.columnIndex="0" GridPane.rowIndex="14"/>
             <Spinner fx:id="basinsSpinner" GridPane.columnIndex="0" GridPane.rowIndex="15"
                      min="0" max="10" initialValue="0"/>
-
-
-
-            <!-- ... Poprzedni kod ... -->
 
             <Label text="Parametry zwierzaków" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
             <Label text="Energia startowa zwierzaków" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
