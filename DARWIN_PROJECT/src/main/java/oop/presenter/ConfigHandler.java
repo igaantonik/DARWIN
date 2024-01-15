@@ -5,11 +5,14 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Spinner;
 
 import java.io.*;
+import java.net.URL;
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.util.Properties;
 
 public class ConfigHandler {
     private final Properties properties;
-    private final String configFilePath = "src/main/resources/config.properties";
+
 
     public ConfigHandler() {
         this.properties = new Properties();
@@ -17,12 +20,14 @@ public class ConfigHandler {
     }
 
     private void loadProperties() {
-        try (InputStream input = new FileInputStream(configFilePath)) {
+        URL configFilePath = getClass().getClassLoader().getResource("config.properties");
+        try (InputStream input = new FileInputStream(URLDecoder.decode(configFilePath.getFile(), StandardCharsets.UTF_8))){
             properties.load(input);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
 
     public void saveSimulationConfig(
             Spinner<Integer> heightSpinner, Spinner<Integer> widthSpinner,
@@ -54,7 +59,9 @@ public class ConfigHandler {
         properties.setProperty("fileSaving", String.valueOf(fileSavingCheckbox.isSelected()));
 
 
-        try (OutputStream output = new FileOutputStream(configFilePath)) {
+        URL configFilePath = getClass().getClassLoader().getResource("config.properties");
+
+        try (OutputStream output = new FileOutputStream(URLDecoder.decode(configFilePath.getFile(), StandardCharsets.UTF_8))) {
             properties.store(output, null);
         } catch (IOException e) {
             e.printStackTrace();
