@@ -68,7 +68,6 @@ public class ParametersPresenter{
     public CheckBox fileSaving;
 
 
-
     private final ConfigHandler configHandler = new ConfigHandler();
 
     @FXML
