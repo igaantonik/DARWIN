@@ -64,6 +64,7 @@ public class WaterBasin {
         return flowDirection;
     }
 
+    public int getFlow(){return flow;}
     @Override
     public String toString() {
         return flowDirection + " " + flow + " " + upperRight + " " +lowerLeft;

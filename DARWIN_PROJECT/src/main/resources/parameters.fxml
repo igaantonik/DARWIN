@@ -46,7 +46,7 @@
                 <items>
                     <FXCollections fx:factory="observableArrayList">
                         <String fx:value="Ziemia"/>
-                        <String fx:value="Przypływy i odpływy"/>
+                        <String fx:value="Przyplywy i odplywy"/>
                     </FXCollections>
                 </items>
             </ComboBox>
@@ -59,6 +59,8 @@
             <Label fx:id="basinsLabel" text="Ile zbiornikow" GridPane.columnIndex="0" GridPane.rowIndex="14"/>
             <Spinner fx:id="basinsSpinner" GridPane.columnIndex="0" GridPane.rowIndex="15"
                      min="0" max="10" initialValue="0"/>
+
+
 
 
 
