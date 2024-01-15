@@ -14,6 +14,6 @@ public class GenomFullPredestination extends AbstractGenom implements Genom{
         this.parameters = parameters;
         Random rand = new Random();
         genes = childsgenom(animal1,animal2);
-        this.currentGen = rand.nextInt(genes.size()-1);
+        this.currentGen = rand.nextInt(genes.size());
     }
 }
