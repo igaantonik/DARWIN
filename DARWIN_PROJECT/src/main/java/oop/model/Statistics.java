@@ -60,6 +60,9 @@ public class Statistics implements ChangeStats{
                 animalsAmount += 1;
             }
         }
+        if(animalsAmount == 0){
+            return 0;
+        }
         return averageEnergy / animalsAmount;
     }
 
