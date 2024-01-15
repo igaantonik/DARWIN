@@ -96,6 +96,11 @@ public class FlowsAndEbbs extends AbstractWorldMap implements WorldMap{
 
     @Override
     public boolean canMoveTo(Vector2d position) {
+        for (WaterBasin basin: basins){
+            if (position.precedes(basin.getUpperRight()) && position.follows(basin.getLowerLeft())){
+                return false;
+            }
+        }
         return position.getY() >= 0 && position.getY() <= height - 1;
     }
 
