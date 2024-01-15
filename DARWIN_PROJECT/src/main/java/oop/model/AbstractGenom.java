@@ -19,12 +19,15 @@ public class AbstractGenom implements Genom{
     }
 
     @Override
-    public boolean equals(AbstractGenom other) {
-        if(this.genes.size() != other.getGenes().size()){
+    public boolean equals(Object o) {
+        if(getClass() != o.getClass()){
+            return false;
+        }
+        if(this.genes.size() != ((AbstractGenom) o).getGenes().size()){
             return false;
         }
         for(int i=0; i< this.genes.size(); i++){
-            if(this.genes.get(i) != other.getGenes().get(i)){
+            if(!this.genes.get(i).equals( ((AbstractGenom) o).getGenes().get(i))){
                 return false;
             }
         }
