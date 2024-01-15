@@ -121,6 +121,19 @@ public class Statistics implements ChangeStats{
         }
         return  placesToHiglight;
     }
+
+    public List<Vector2d> mostPreferedByPlants(){
+        List<Vector2d> placesToHiglight = new ArrayList<>();
+        int width = map.getWidth();
+        int height = map.getHeight();
+        for (int x = 0; x < width; x++) {
+            for (int y = (height*4)/10; y < (height*6)/10; y++) {
+                placesToHiglight.add(new Vector2d(x, y));
+            }
+        }
+        return  placesToHiglight;
+    }
+
     public String getAnimalsNumber() {return Integer.toString(this.animalsNumber);}
 
     public String getMostGenom() {
