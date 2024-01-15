@@ -69,7 +69,19 @@ public class ParametersPresenter{
 
 
 
-    public void onSimulationStartClicked(){
+    private final ConfigHandler configHandler = new ConfigHandler();
+
+    @FXML
+    private void onSimulationStartClicked() {
+        configHandler.saveSimulationConfig(
+                heightSpinner, widthSpinner, animalsNumSpinner, plantNumSpinner,
+                dailyPlantsNumSpinner, mapVariantBox, fileSaving, basinsSpinner,
+                animalStartEnergySpinner, animalReproduceEnergySpinner,
+                animalLostToReproduceEnergySpinner, eatEnergySpinner,
+                genomLengthSpinner, minMutationSpinner,
+                maxMutationSpinner, genomVariantBox);
+
+
         try{
             WorldParameters worldParameters = new WorldParametersBuilder()
                     .setStartAnimalNumber((int) animalsNumSpinner.getValue())
@@ -120,6 +132,16 @@ public class ParametersPresenter{
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+    @FXML
+    private void initialize() {
+        configHandler.loadSimulationConfig(
+                heightSpinner, widthSpinner, animalsNumSpinner, plantNumSpinner,
+                dailyPlantsNumSpinner, mapVariantBox, fileSaving, basinsSpinner,
+                animalStartEnergySpinner, animalReproduceEnergySpinner,
+                animalLostToReproduceEnergySpinner, eatEnergySpinner,
+                genomLengthSpinner, minMutationSpinner,
+                maxMutationSpinner, genomVariantBox);
     }
 
 }
